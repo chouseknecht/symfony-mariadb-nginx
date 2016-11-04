@@ -6,7 +6,7 @@ Not only is your development done in containers, but you also get all the tools 
 
 Don't beleive it? Skip down to *[Start with the symfony demo](#symfony-demo)*, and try it out.
 
-## Start developing
+## Getting started
 
 If you want to hop in and start creating your next symfony masterpiece, the following will get started. But if you want to kick the tires a bit and see how the project works, skip down to the *Start the symfony demo* section, and we'll explain how to launch with Symfony Demo project running in containers.
 
@@ -51,15 +51,16 @@ A template is used to create the php.ini file inside the *ansible_symfony_1* con
 
 <h2 id="symfony-demo">Start with the symfony demo</h2>
 
-Instead of starting with an empty project, you can start with a fully functioning demo and get a feel for how all of this works.
+Instead of starting with an empty project, you can start with a fully functioning demo, try it out, deploy it, and see how the framework performs.
 
-You'll need to first clone this project and install the requirements. Once you have done that, then run the following commands to start the demo:
+You'll need to first clone this project and install the requirements. Once you've completed that, then run the following commands to start the demo:
 
 ```
 # Set the working directory to the root of the clone
 $ cd symfony-mariadb-nginx
 
-# Build the container images with the demo project
+# Build the container images with the demo project. WARNING: the following command will remove anything you may have 
+# in the *symphony* folder.
 $ make demo
 
 # Run the project in development mode
@@ -73,7 +74,8 @@ The PHP web servers is running inside *ansible_symfony_1* and listening on port 
 When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.0.1:8000), you will see the following page:
 
 
-During the startup of the *ansible_symfony_1* container, the commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you browse the backend page, for example, you will be able to click the *Login* button and see live data from the *mariadb* service. 
+During the startup of the *ansible_symfony_1* container, commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you browse the backend page, for example, you will be able to click the *Login* button and see live data from the *mariadb* service.
+
 
 
 
