@@ -2,10 +2,10 @@
 .PHONY: build build_from_scratch composer console clean demo run
 
 composer:
-	docker exec -i -t ansible_symfony_1 $(MAKECMDGOALS)
+	docker exec -i -t ansible_symfony_1 /symfony/ansible/composer.sh $(filter-out $@, $(MAKECMDGOALS)) 
 
 console:
-	docker exec -i -t ansible_symfony_1 cd /symfony/symfony && php bin/$(MAKECMDGOALS)
+	docker exec -i -t ansible_symfony_1 /symfony/ansible/console.sh $(filter-out $@, $(MAKECMDGOALS)) 
 
 clean:
 	@./ansible/clean.sh
@@ -24,3 +24,6 @@ demo:
 
 run:
 	ansible-container run
+
+run_prod:
+	ansible-container run --production
