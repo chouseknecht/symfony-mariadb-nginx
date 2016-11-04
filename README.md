@@ -1,10 +1,10 @@
 # symfony-nginx-mariadb
 
-A containerized [symfony]() stack you can use to start your next symfony project.
+A containerized [symfony](https://symfony.com/) stack you can use to start your next symfony project.
 
 Not only is your development done in containers, but you also get all the tools you need to deploy your app to Kubernetes or Openshift. Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
-Don't beleive it? Skip down to *Start with the symfony demo*, and try it out.
+Don't beleive it? Skip down to *[Start with the symfony demo](#symfony-demo)*, and try it out.
 
 ## Start developing
 
@@ -49,7 +49,7 @@ You can shell into the *ansible_symfony_1* container directly by running `docker
 
 A template is used to create the php.ini file inside the *ansible_symfony_1* container. Lots of variables can be set in *ansible/group_vars/all* These settings will be applied to the symfony container as well as the nginx container the next time you run *make build*
 
-## Start with the symfony demo
+<h2 id="symfony-demo">Start with the symfony demo</h2>
 
 Instead of starting with an empty project, you can start with a fully functioning demo and get a feel for how all of this works.
 
