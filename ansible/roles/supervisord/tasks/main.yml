@@ -6,8 +6,8 @@
 
 - name: Copy the supervisor conf file
   template: 
-    src: supervisor.conf.j2
-    dest: /etc/supservisor.conf
+    src: supervisord.conf.j2
+    dest: /etc/supervisord.conf
     owner: root
     group: root
     mode: 0664
@@ -20,9 +20,14 @@
     group: root
     mode: 0777
 
-- name: Link log file to /dev/stdout
+- name: Remove /var/run/supervisor
   file:
-    path: /var/log/supervisor/supervisor.log
-    src: /dev/stdout
-    state: link
-    force: yes
+    path: /var/run/supervisor
+    state: absent
+
+#- name: Link log file to /dev/stdout
+#  file:
+#    path: /var/log/supervisor/supervisor.log
+#    src: /dev/stdout
+#    state: link
+#    force: yes

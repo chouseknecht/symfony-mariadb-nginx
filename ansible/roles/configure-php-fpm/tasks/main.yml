@@ -10,6 +10,9 @@
     state: present
   with_items: "{{ php_packages }}"
 
+- name: Clean the yum cachen
+  command: yum clean all
+
 - name: Get the PHP composer installer
   get_url:
     url: https://getcomposer.org/installer
@@ -26,16 +29,29 @@
     group: root
     mode: 0664
 
-- name: Stat symfony.gz
-  stat:
-    path: /ansible-container/dist/symfony.gz
-  register: sym
+- name: Copy php-fpm.conf
+  template:
+    src: php-fpm.conf.j2
+    dest: /etc/php-fpm.conf
+    owner: root
+    group: root
+    mode: 0664
+
+- name: Remove /var/run/php-fpm
+  file:
+    path: /var/run/php-fpm
+    state: absent
 
 - name: Copy the project source archive
   copy:
     src: /ansible-container/dist/symfony.gz
     dest: /symfony.gz
-  when: sym.stat.exists
+  ignore_errors: yes
+
+- name: Stat /symfony.gz
+  stat:
+    path: /symfony.gz
+  register: sym
 
 - name: Unarchive the source
   command: tar -xvf /symfony.gz
@@ -65,18 +81,31 @@
     group: root
     mode: 0664
 
-- name: Set php-fpm log directory permissions
+- name: Set directory permissions
   file:
-    path: /var/log/php-fpm
+    path: "{{ item }}"
     state: directory
     owner: root
     group: root
-    mode: 0777
+    mode: 0775
+    recurse: yes
+  with_items:
+  - /var/lib/php/fpm/session
+  - /var/lib/php/fpm/wsdlcache
+  - /var/log/php-fpm
 
-- name: Link php-fpm log file to /dev/stdout
-  file:
-    path: /var/log/php-fpm/php-fpm.log
-    src: /dev/stdout
-    state: link
-    force: yes
+- name: Copy pool config
+  template:
+    src: www.conf.j2
+    dest: /etc/php-fpm.d/www.conf
+    owner: root
+    group: root
+    mode: 0664
+
+# - name: Link php-fpm log file to /dev/stdout
+#  file:
+#    path: /var/log/php-fpm/php-fpm.log
+#    src: /dev/stdout
+#    state: link
+#    force: yes
 
