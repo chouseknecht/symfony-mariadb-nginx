@@ -1,0 +1,1 @@
+# symfony-nginx-mariadb
