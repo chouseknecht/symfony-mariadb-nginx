@@ -60,7 +60,7 @@ You'll need to first clone this project and install the requirements. Once you h
 $ cd symfony-mariadb-nginx
 
 # Build the container images with the demo project
-$ make build
+$ make demo
 
 # Run the project in development mode
 $ make run
