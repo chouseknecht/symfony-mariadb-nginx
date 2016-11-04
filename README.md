@@ -4,19 +4,22 @@ Use as a starting point for creating and managing a containerized symfony applic
 
 ## Start developing
 
-If you want to hop in and start creating your next symfony masterpiece, the following will get started, after you install the requirements and clone this project. If you just want to kick the tires a bit, skip down to the *Start the symfony demo* section, and we'll explain you how to launch the Symfony Demo in containers. 
+If you want to hop in and start creating your next symfony masterpiece, the following will get started. But if you want to kick the tires a bit and see how the project works, skip down to the *Start the symfony demo* section, and we'll explain how to launch with Symfony Demo project running in containers.
+
+To get started developing, you'll first need to clone this project and have the prerequisites installed. Once you've got that, run the following commands: 
 
 ```
 # Set the working directory to the root of the cloned project
 $ cd symfony-mariadb-nginx
 
-# Build the images
-$ make build
+# Build the images. NOTE: the following command will delete whatever is in the *symfony* directory. If you don't
+# want that, then run `make build` instead.
+$ make build_from_scratch
 
-# Run the containers development mode
+# Run in development mode
 $ make run
 ```
-The *symfony* and *mariadb* services will be started in an attached state or in the foreground, and output from each will appear in your terminal window. Since we're in development mode the *nginx* service will quietly stop.
+The *symfony* and *mariadb* services will be started in the foreground, and output from each will appear in your terminal window. Since we're in development mode the *nginx* service will quietly stop.
 
 The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created. The *symfony* project exists in the root of local clone, and at */symfony/symfony* inside the *ansible_symfony_1* container. You can start writing code in the *symfony* directory.
 
@@ -42,7 +45,36 @@ You can shell into the *ansible_symfony_1* container directly by running `docker
 
 A template is used to create the php.ini file inside the *ansible_symfony_1* container. Lots of variables can be set in *ansible/group_vars/all* These settings will be applied to the symfony container as well as the nginx container the next time you run *make build*
 
-## Start the symfony demo
+## Start with the symfony demo
+
+Instead of starting with an empty project, you can start with a fully functioning demo and get a feel for how all of this works.
+
+You'll need to first clone this project and install the requirements. Once you have done that, then run the following commands to start the demo:
+
+```
+# Set the working directory to the root of the clone
+$ cd symfony-mariadb-nginx
+
+# Build the container images with the demo project
+$ make build
+
+# Run the project in development mode
+$ make run
+```
+
+The above commands created a *symfony* directory containing the demo project. The root of the your local clone is mounted as */symfony* to the *ansible_symfony_1* container, so inside the container the demo project can be found at */symfony/symfony*, and outside it is the *symfony* directory in the root of the clone.
+
+The PHP web servers is running inside *ansible_symfony_1* and listening on port 8000. You an access the server using a web browser and pointing to port 8000 at the IP address of your Docker Host. If your running Docker Engine, then the IP address is most likely *127.0.0.1*. If you're running Docker Machine, you'll need the IP address of the vagrant box, which you can get by running `docker-machine ip default`, where *default* is the name of your vagrant box.
+
+When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.0.1:8000), you will see the following page:
+
+
+During the startup of the *ansible_symfony_1* container, the commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you browse the backend page, for example, you will be able to click the *Login* button and see live data from the *mariadb* service. 
+
+
+
+
+
 
 
 
