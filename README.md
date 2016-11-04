@@ -1,4 +1,4 @@
-# symfony-nginx-mariadb
+# symfony-mariadb-nginx
 
 A containerized [symfony](https://symfony.com/) stack you can use to start your next symfony project.
 
