@@ -1,0 +1,28 @@
+---
+- name: Install supervisor package
+  yum:
+    name: supervisor
+    state: latest
+
+- name: Copy the supervisor conf file
+  template: 
+    src: supervisor.conf.j2
+    dest: /etc/supservisor.conf
+    owner: root
+    group: root
+    mode: 0664
+
+- name: Set log directory permissions
+  file:
+    path: /var/log/supervisor
+    state: directory
+    owner: root
+    group: root
+    mode: 0777
+
+- name: Link log file to /dev/stdout
+  file:
+    path: /var/log/supervisor/supervisor.log
+    src: /dev/stdout
+    state: link
+    force: yes

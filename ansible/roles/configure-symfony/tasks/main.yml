@@ -1,0 +1,28 @@
+- name: Create /demo_config
+  file:
+    path: /demo_config
+    state: directory
+    owner: symfony
+    group: root
+    mode: 0775
+
+- name: Copy configuration to /demo_config
+  template:
+    src: "{{ item.src }}"
+    dest: "/demo_config/{{ item.dest }}"
+    owner: symfony
+    group: root
+    mode: 0664
+  with_items:
+  - src: config.yml.j2
+    dest: config.yml
+  - src: parameters.yml.dist.j2
+    dest: parameters.yml.dist
+
+- name: Copy new entrypoint script
+  template:
+    src: entrypoint.sh.j2
+    dest: /usr/bin/entrypoint.sh
+    owner: root
+    group: root
+    mode: 0775

@@ -1,0 +1,12 @@
+[supervisord]
+nodaemon=true
+logfile=/var/log/supervisor/supervisor.log
+loglevel=info
+pidfile=/var/run/supervisord.pid
+
+
+[program:nginx]
+command=/usr/sbin/nginx
+
+[program:fpm]
+command=/usr/sbin/php-fpm -c /etc/php-fpm.conf

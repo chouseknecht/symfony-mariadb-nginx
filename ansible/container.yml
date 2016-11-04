@@ -1,0 +1,64 @@
+version: '1'
+defaults:
+  mariadb_database: mysql
+  mariadb_username: admin
+  mariadb_password: admin
+  mariadb_root_password: root
+  demo_mode: 0
+services:
+
+  mariadb:
+    image: centos:7
+    entrypoint: [/usr/bin/entrypoint.sh]
+    working_dir: /
+    user: mysql
+    command: [mysqld]
+    environment:
+    - MARIADB_DATABASE={{ mariadb_database }}
+    - MARIADB_USERNAME={{ mariadb_username }}
+    - MARIADB_PASSWORD={{ mariadb_password }}
+    - MARIADB_ROOT_PASSWORD= {{ mariadb_root_password }}
+    ports:
+    - 3306:3306
+
+  symfony:
+    image: centos:7
+    user: symfony
+    command: [/bin/true]
+    working_dir: /symfony
+    links:
+    - mariadb
+    volumes:
+    - $PWD:/symfony:rw
+    environment:
+    # Set DEMO_MODE=1 to initialize with https://github.com/symfony/symfony-demo
+    # the first time the container starts.
+    - DEMO_MODE={{ demo_mode }}
+    - SYMFONY_VERSION=latest
+    - SYMFONY__MARIADB__DATABASE={{ mariadb_database }}
+    - SYMFONY__MARIADB__USERNAME={{ mariadb_username }}
+    - SYMFONY__MARIADB__PASSWORD={{ mariadb_password }}
+    - SYMFONY__MARIADB__ROOT__PASSWORD={{ mariadb_root_password }}
+    ports:
+    - 8000:8000
+    entrypoint: [/usr/bin/entrypoint.sh]
+
+    dev_overrides:
+      command: [php, bin/console, 'server:run', '0.0.0.0:8000']
+
+  nginx:
+    image: centos:7
+    ports:
+    - 8888:8888
+    user: nginx
+    working_dir: /
+    command: [nginx]
+    entrypoint: [/usr/bin/entrypoint.sh]
+    environment:
+    - ENVSUBST_MATCH=SYMFONY
+
+    dev_overrides:
+      # We don't need to run this in dev
+      command: [/bin/true]
+
+registries: {}

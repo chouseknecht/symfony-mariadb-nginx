@@ -1,0 +1,71 @@
+# user  nginx;
+
+error_log  {{ nginx_error_log }};
+pid        {{ nginx_pidfile }};
+
+worker_processes 1;
+daemon off;
+
+events {
+    worker_connections 1024; 
+    multi_accept off; 
+}
+
+http {
+    include       {{ nginx_mime_file_path }};
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    server_names_hash_bucket_size 64;
+    client_max_body_size 64m;
+
+    access_log  {{ nginx_access_log }};
+
+    sendfile        on;
+    tcp_nopush      on;
+    tcp_nodelay     on;
+    gzip            on;
+
+    keepalive_timeout 65;
+    keepalive_requests 100;
+
+    server {
+        listen       {{ nginx_default_port }};
+        server_name  {{ nginx_default_server_name }};
+    
+        # charset koi8-r;
+    
+        location / {
+            root   /var/www/nginx;
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            if (!-f $document_root$fastcgi_script_name) {
+                return 404;
+            }
+            # Mitigate https://httpoxy.org/ vulnerabilities
+            fastcgi_param HTTP_PROXY "";
+
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_index index.php;
+
+            # Create environment vars for database connection
+            fastcgi_param SYMFONY__MARIADB__DATABASE '${SYMFONY__MARIADB__DATABASE}';
+            fastcgi_param SYMFONY__MARIADB__USERNAME '${SYMFONY__MARIADB__USERNAME}';
+            fastcgi_param SYMFONY__MARIADB__PASSWORD '${SYMFONY__MARIADB__PASSWORD}';
+            fastcgi_param SYMFONY__MARIADB__ROOT__PASSWORD '${SYMFONY__MARIADB__ROOT__PASSWORD}';
+
+            include fastcgi_params;
+        }
+    
+        #error_page  404              /404.html;
+    
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+           root   /var/www/nginx;
+        }
+    }
+}

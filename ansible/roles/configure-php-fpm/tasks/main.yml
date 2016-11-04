@@ -1,0 +1,82 @@
+---
+- name: Install the IUS Community RPM 
+  yum: 
+    name: http://dl.iuscommunity.org/pub/ius/stable/CentOS/7/x86_64/ius-release-1.0-14.ius.centos7.noarch.rpm
+    state: present
+
+- name: Install php packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ php_packages }}"
+
+- name: Get the PHP composer installer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /composer-setup.php
+
+- name: Install composer
+  command: php /composer-setup.php --install-dir=/usr/bin --filename=composer
+
+- name: Copy php.ini
+  template:
+    src: php.ini.j2
+    dest: /etc/php.ini
+    owner: root
+    group: root
+    mode: 0664
+
+- name: Stat symfony.gz
+  stat:
+    path: /ansible-container/dist/symfony.gz
+  register: sym
+
+- name: Copy the project source archive
+  copy:
+    src: /ansible-container/dist/symfony.gz
+    dest: /symfony.gz
+  when: sym.stat.exists
+
+- name: Unarchive the source
+  command: tar -xvf /symfony.gz
+  args:
+    chdir: /var/www/nginx
+  when: sym.stat.exists
+
+- name: Remove the archive
+  file:
+    path: /symfony.gz
+    state: absent
+  when: sym.stat.exists
+
+- name: Copy nginx_conf
+  template:
+    src: nginx.conf.j2
+    dest: /nginx_templates/nginx.conf
+    owner: root
+    group: root
+    mode: 0664
+
+- name: Copy fastcgi_params
+  template:
+    src: fastcgi_params.j2
+    dest: /etc/nginx/fastcgi_params
+    owner: root
+    group: root
+    mode: 0664
+
+- name: Set php-fpm log directory permissions
+  file:
+    path: /var/log/php-fpm
+    state: directory
+    owner: root
+    group: root
+    mode: 0777
+
+- name: Link php-fpm log file to /dev/stdout
+  file:
+    path: /var/log/php-fpm/php-fpm.log
+    src: /dev/stdout
+    state: link
+    force: yes
+

@@ -1,0 +1,3 @@
+- src: chouseknecht.mariadb-container
+- src: chouseknecht.symfony-container
+- src: chouseknecht.nginx-container
