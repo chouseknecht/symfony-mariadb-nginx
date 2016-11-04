@@ -1,6 +1,10 @@
 # symfony-nginx-mariadb
 
-Use as a starting point for creating and managing a containerized symfony application. Includes everything needed to start developing an application on your laptop as well as deploy it to OpenShfit or Kubernetes.
+A containerized [symfony]() stack you can use to start your next symfony project.
+
+Not only is your development done in containers, but you also get all the tools you need to deploy your app to Kubernetes or Openshift. Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
+
+Don't beleive it? Skip down to *Start with the symfony demo*, and try it out.
 
 ## Start developing
 
