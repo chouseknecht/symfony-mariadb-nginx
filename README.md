@@ -23,15 +23,41 @@ $ make build_from_scratch
 # Run in development mode
 $ make run
 ```
-The *symfony* and *mariadb* services will be started in the foreground, and output from each will appear in your terminal window. Since we're in development mode the *nginx* service will quietly stop.
+The `make run` command, which is running `ansible-container run`, takes a few minutes to finish. When it does, you will see the following message from the *symfony* container:
 
-The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created. The *symfony* project exists in the root of local clone, and at */symfony/symfony* inside the *ansible_symfony_1* container. You can start writing code in the *symfony* directory.
+```
+symfony_1            |  ✔  Symfony 3.1.6 was successfully installed. Now you can:
+symfony_1            |
+symfony_1            |     * Change your current directory to /symfony/symfony
+symfony_1            |
+symfony_1            |     * Configure your application in app/config/parameters.yml file.
+symfony_1            |
+symfony_1            |     * Run your application:
+symfony_1            |         1. Execute the php bin/console server:start command.
+symfony_1            |         2. Browse to the http://localhost:8000 URL.
+symfony_1            |
+symfony_1            |     * Read the documentation at http://symfony.com/doc
+symfony_1            |
+symfony_1            | + cd /symfony/symfony
+symfony_1            | + exec php bin/console server:run 0.0.0.0:8000
+symfony_1            |
+symfony_1            |  [OK] Server running on http://0.0.0.0:8000
+symfony_1            |
+symfony_1            |  // Quit the server with CONTROL-C.
+symfony_1            |
+```
+
+The *symfony* and *mariadb* services are now running in the foreground, and output from each is being displayed in your terminal window. Since we're in development mode the *nginx* service is not needed, and so you may have noticed it quietly stop at the beginning.
+
+The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created at */symfony/symfony*, so inside the container you can access the project at */symfony/symfony*, and outside the container you can access it directly in the *symfony* folder found in the root directory.
 
 ### Accessing the web server
 
-During development PHP web server is available on port 8000. You can access it in a web browser using the IP address of your Docker host. If you're running Docker Machine this will be the IP address of the vagrant box, which you can get by running `docker-mahine ip default`, where *default* is the name of the vagrant box.
+During development the PHP web server is running in the *ansible_symfony_1* container and is available on port 8000. You can access it in a web browser using the IP address of your Docker host. If you're running Docker Machine this will be the IP address of the vagrant box, which you can get by running `docker-mahine ip default`, where *default* is the name of the vagrant box.
 
 When you visit the web site at [http://_your_docker_host_ip:8000](http://127.0.0.1:8000), you will see the following default symfony page:
+
+<img src="https://github.com/chouseknecht/symfony-mariadb-nginx/blob/images/img/empty-project-page.png" alt="New project page" />
 
 ### Running console commands
 
