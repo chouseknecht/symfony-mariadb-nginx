@@ -234,7 +234,7 @@ password:
 
 ### Configure insecure registry access
 
-For the deployment we'll be pushing images to the insecure registry hosted on the VM. The address of the registry is *hub.* followed by the IP address of the VM. For example, `hub.10.2.2.2`. Add an entry to your local */etch/hosts* file pointing this name to the IP address of the VM. 
+For the deployment we'll be pushing images to the insecure registry hosted on the VM. The address of the registry is the IP address of the VM.
 
 You'll need to configure Docker to access the registry. If you're running Docker Engine, follow the [instructions here](https://docs.docker.com/registry/insecure/#/deploying-a-plain-http-registry) to add the *--insecure-registry* option.
 
@@ -242,19 +242,22 @@ If you're running Docker Machine, create a new VM that allows insecure access to
 
 ```
 # Create a new Docker Machine VM named 'devel'. Replace 10.2.2.2 with the IP of your VM.
-$ docker-machine create -d virtualbox --engine-insecure-registry hub.10.2.2.2 --virtualbox-host-dns-resolver devel
+$ docker-machine create -d virtualbox --engine-insecure-registry 10.2.2.2
 ```
 
-### Allow insecure access to the route
+### Create an insecure route
 
 Using a web browser, access the OpenShift console at https://10.2.2.2:8443/console, replacing 10.2.2.2 with the IP address of your VM, and perform the following to allow insecure access to the registry:
 
 - Open the *default* project
-- From the Applications menu, access *routes*, and open the *docker-registry* route. 
-- Edit the route
+- From the Applications menu, access *routes*, and click on *Create Route* 
+- Set the name to *insecure-access*
+- Set the hostname to the IP address of the VM
+- Leave the service as *docker-regisry*, and the target port as 5000 
 - Click on *Show options for secured routes*
 - Set *TLS Termination* to *Edge*
-- *Insecure Traffic* to *Allow*.
+- *Insecure Traffic* to *Allow*
+- Clic the *Create* button
 
 ### Create a new OpenShift project
 
@@ -273,7 +276,7 @@ If you completed the steps above, you should be able to login into the registry 
 
 ```
 # Log into the registry. Replace 10.2.2.2 with the IP of your VM.
-$ docker login -u admin -p $(oc whoami -t) http://hub.10.2.2.2
+$ docker login -u admin -p $(oc whoami -t) http://10.2.2.2
 Login Succeeded
 ```
 ### Build the images
@@ -294,7 +297,7 @@ Before we can deploy, we need to push our images onto the OpenShift VM by execut
 
 ```
 # Push the images to the OpenShift registry
-$ ansible-container push --push-to http://hub.10.2.2.2/symfony-mariadb-nginx
+$ ansible-container push --push-to http://10.2.2.2/symfony-mariadb-nginx
 ```
 
 ### Generate the deployment playbook and role
