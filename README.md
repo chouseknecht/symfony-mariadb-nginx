@@ -8,9 +8,9 @@ Don't beleive it? Skip down to *[Start with the symfony demo](#symfony-demo)*, a
 
 ## Getting started
 
-If you want to hop in and start creating your next symfony masterpiece, the following will get started. But if you want to kick the tires a bit and see how the project works, skip down to the *Start the symfony demo* section, and we'll explain how to launch with Symfony Demo project running in containers.
+If you want to hop in and start creating your next symfony masterpiece, the following will get started. But if you want to kick the tires a bit and see how the project works, skip down to the *[Start with the symfony demo](#symfony-demo)* section, and see how to launch the [Symfony Demo](https://github.com/symfony/symfony-demo) project in containers.
 
-To get started developing, you'll first need to clone this project and have the prerequisites installed. Once you've got that, run the following commands: 
+To get started developing, you'll first need to clone this project and have the requirements installed. Once you've got that, then run the following commands to setup your development environment: 
 
 ```
 # Set the working directory to the root of the cloned project
@@ -67,9 +67,9 @@ $ make demo
 $ make run
 ```
 
-The above commands created a *symfony* directory containing the demo project. The root of the your local clone is mounted as */symfony* to the *ansible_symfony_1* container, so inside the container the demo project can be found at */symfony/symfony*, and outside it is the *symfony* directory in the root of the clone.
+The above commands created a *symfony* directory containing the demo project. The root of the your local clone is mounted as */symfony* to the *ansible_symfony_1* container, so inside the container the demo project can be found at */symfony/symfony*, and outside it is simply the *symfony* directory in the root directory.
 
-The PHP web servers is running inside *ansible_symfony_1* and listening on port 8000. You an access the server using a web browser and pointing to port 8000 at the IP address of your Docker Host. If your running Docker Engine, then the IP address is most likely *127.0.0.1*. If you're running Docker Machine, you'll need the IP address of the vagrant box, which you can get by running `docker-machine ip default`, where *default* is the name of your vagrant box.
+The PHP web servers is running inside *ansible_symfony_1* and listening on port 8000. You an access the server using a web browser and pointing to port 8000 at the IP address of your Docker host. If your running Docker Engine, then the IP address is most likely *127.0.0.1*. If you're running Docker Machine, you'll need the IP address of the vagrant box, which you can get by running `docker-machine ip default`, where *default* is the name of your vagrant box.
 
 When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.0.1:8000), you will see the following page:
 
