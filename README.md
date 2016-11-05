@@ -11,7 +11,7 @@ Don't believe it? After installing the requirements, skip to *[Start with the sy
 ## Requirements
 
 - [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
-- [Ansible Container](https://github.com/ansible/ansible-container)
+- [Ansible Container](https://github.com/ansible/ansible-container) installed from the repo, not from pip
 - make
 - [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
 - clone this project by running `git@github.com:chouseknecht/symfony-mariadb-nginx.git`
@@ -234,7 +234,7 @@ password:
 
 ### Configure insecure registry access
 
-For the deployment we'll be pushing images to the insecure registry hosted on the VM. The address of the registry is the IP address of the VM.
+For the deployment we'll be pushing images to the registry hosted on the VM. The address of the registry is the IP address of the VM.
 
 You'll need to configure Docker to access the registry. If you're running Docker Engine, follow the [instructions here](https://docs.docker.com/registry/insecure/#/deploying-a-plain-http-registry) to add the *--insecure-registry* option.
 
@@ -256,8 +256,8 @@ Using a web browser, access the OpenShift console at https://10.2.2.2:8443/conso
 - Leave the service as *docker-regisry*, and the target port as 5000 
 - Click on *Show options for secured routes*
 - Set *TLS Termination* to *Edge*
-- *Insecure Traffic* to *Allow*
-- Clic the *Create* button
+- Set *Insecure Traffic* to *Allow*
+- Click the *Create* button
 
 ### Create a new OpenShift project
 
@@ -302,9 +302,30 @@ $ ansible-container push --push-to http://10.2.2.2/symfony-mariadb-nginx
 
 ### Generate the deployment playbook and role
 
-We need to transform our orchestration document [ansible/container.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/container.yml) into deployment instrutions for OpenShift by running `ansible-container shipit`. This will generate an Ansible playbook and role that will execute the deployment:
+We need to transform our orchestration document [ansible/container.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/container.yml) into deployment instrutions for OpenShift by running `ansible-container shipit`. This generates an Ansible playbook and role to perform the deployment.
+
+Before running this step you need to know the server to pull the images from. The server will be the IP address of the Docker registry container running inside the VM. It's an IP address that's only accessible from within the VM. To get the IP address, access the OpenShift console for your project, open the *Builds* menu, and choose *Images*. Here you will see each of the images, and to the right of each image name is the *Pull spec*. Get the IP address from the *pull spec*, and use it to execute the following: 
 
 ```
+# Set the working directory to the project root
+$ cd symfony-mariadb-nginx
+
+# Run the shipit command, using the IP address for your registry
+$ ansible-container shipit openshift --pull-from 172.30.53.244:5000/symfony-mariadb-nginx
+```
+
+### Run the deployment
+
+The above added a playbook called *shipit-openshift.yml* to the *ansible* directory, and so all that's left is to run it:
+
+```
+# Set the working directory to the ansible directory
+$ cd symfony-mariadb-nginx/ansible
+
+# Run the playbook
+$ ansible-playbook shipit-openshift.yml
+```
+
 ```
 
 
