@@ -137,7 +137,7 @@ When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.
 
 <img src="https://github.com/chouseknecht/symfony-mariadb-nginx/blob/images/img/demo-app-page.png" alt="Demo app page" />
 
-During the startup of the *ansible_symfony_1* container, commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you browse the backend page, for example, you will be able to click the *Login* button and see live data from the *mariadb* service.
+During the startup of the *ansible_symfony_1* container, commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you click the *Browse backend* button, for example, you will be able to click the *Login* button and see live data from the *mariadb* service.
 
 
 
