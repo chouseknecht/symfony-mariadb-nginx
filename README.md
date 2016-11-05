@@ -247,7 +247,14 @@ $ docker-machine create -d virtualbox --engine-insecure-registry hub.10.2.2.2 --
 
 ### Allow insecure access to the route
 
-Using a web browser access the OpenShift console at https://10.2.2.2:8443/console, replacing 10.2.2.2 with the IP address of your VM. Open the *default* project, access *routes*, and open the *docker-registry* route. Edit the route, click on *Show options for secured routes*, and set *TLS Termination* to *Edge* and *Insecure Traffic* to *Allow*.
+Using a web browser, access the OpenShift console at https://10.2.2.2:8443/console, replacing 10.2.2.2 with the IP address of your VM, and perform the following to allow insecure access to the registry:
+
+- Open the *default* project
+- From the Applications menu, access *routes*, and open the *docker-registry* route. 
+- Edit the route
+- Click on *Show options for secured routes*
+- Set *TLS Termination* to *Edge*
+- *Insecure Traffic* to *Allow*.
 
 ### Create a new OpenShift project
 
