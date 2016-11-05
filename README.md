@@ -199,6 +199,68 @@ Access the web server exactly the same as before, except this time use port 8888
 
 ## Deploying to OpenShift
 
+For this example, we're using the [OpenShift All-In-One VM](https://www.openshift.org/vm/), so to follow along you'll need to have the VM running, and the [oc client](https://github.com/openshift/origin/releases/tag/v1.3.0) installed.
+
+After you start the VM for the first time, the following message will be displayed, revelaing the IP address of the VM and access instructions:
+
+```
+==> default: Successfully started and provisioned VM with 2 cores and 5 G of memory.
+==> default: To modify the number of cores and/or available memory modify your local Vagrantfile
+==> default:
+==> default: You can now access the OpenShift console on: https://10.2.2.2:8443/console
+==> default:
+==> default: Configured users are (<username>/<password>):
+==> default: admin/admin
+==> default: user/user
+==> default: But, you can also use any username and password combination you would like to create
+==> default: a new user.
+==> default:
+==> default: You can find links to the client libraries here: https://www.openshift.org/vm
+==> default: If you have the oc client library on your host, you can also login from your host.
+==> default:
+==> default: To use OpenShift CLI, run:
+==> default: $ oc login https://10.2.2.2:8443
+```
+### Authenticate with the oc client
+
+Log in using the *admin* account
+
+```
+# Authenticate with the new VM
+$ oc login https://10.2.2.2:8443
+username: admin
+password:
+```
+
+### Configure registry access
+
+For the deployment we'll be pushing images to the insecure registry hosted on the VM. The address of the registry is *hub.* followed by the IP address of the VM. For example, `hub.10.2.2.2`. Add an entry to your local */etch/hosts* file pointing this name to the IP address of the VM. 
+
+You'll need to configure Docker to access the registry. If you're running Docker Engine, follow the [instructions here](https://docs.docker.com/registry/insecure/#/deploying-a-plain-http-registry) to add the *--insecure-registry* option.
+
+If you're running Docker Machine, create a new VM that allows insecure access to the regsitry:
+
+```
+# Create a new Docker Machine VM named 'devel'
+$ docker-machine create -d virtualbox --engine-insecure-registry hub.10.2.2.2 --virtualbox-host-dns-resolver devel
+```
+
+### Create a new OpenShift project
+
+We'll need an OpenShift project with the same name as the project we've been working on. The project name is the name you chose when you cloned this repo. If you kept *symfony-mariadb-nginx*, then create a project with that name:
+
+```
+# Create a new project with a name matching our local repo name
+$ oc new-project symfony-mariadb-nginx --description="Deploying a symfony project to openshift" --display-name="symfony demo"
+
+# Grant admin on the new project to your user account (admin)
+$ oc policy add-role-to-user admin admin
+```
+### 
+
+
+
+
 
 
 
