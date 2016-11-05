@@ -6,7 +6,7 @@ Using this framework you're instantly developing your app in containers, plus yo
 
 Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
-Don't believe it? After you confirm have the requirements installed, skip to *[Start with the symfony demo](#symfony-demo)*, and try it out.
+Don't believe it? After installing the requirements, skip to *[Start with the symfony demo](#symfony-demo)*, and try it out.
 
 ## Requirements
 
@@ -14,6 +14,7 @@ Don't believe it? After you confirm have the requirements installed, skip to *[S
 - [Ansible Container](https://github.com/ansible/ansible-container)
 - make
 - [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
+- clone this project by running `git@github.com:chouseknecht/symfony-mariadb-nginx.git`
 
 If installing Docker Machine, we recommend installing version 1.11.2, as the newer 1.12 release has not been tested with Ansible Container.
 
