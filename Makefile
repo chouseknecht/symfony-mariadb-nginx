@@ -18,7 +18,7 @@ build:
 build_from_scratch: clean
 	ansible-container build	
 
-demo:
+demo:	clean
 	@echo "Run the demo"
 	@AC_DEMO_MODE=1; ansible-container --debug run
 
