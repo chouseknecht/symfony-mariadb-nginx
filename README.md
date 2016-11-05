@@ -2,9 +2,11 @@
 
 A containerized [symfony](https://symfony.com/) stack you can use to start your next symfony project.
 
-Using this framework you're instantly developing your app in containers, plus you get built-in tools to deploy your app to Kubernetes or Openshift. Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
+Using this framework you're instantly developing your app in containers, plus you automatically get built-in tools that will deploy your app directly to Kubernetes or Openshift.
 
-Don't believe it? Skip to *[Start with the symfony demo](#symfony-demo)*, and try it out.
+Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
+
+Don't believe it? After you confirm have the requirements installed, skip to *[Start with the symfony demo](#symfony-demo)*, and try it out.
 
 ## Requirements
 
