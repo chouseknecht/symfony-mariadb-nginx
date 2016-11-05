@@ -151,6 +151,42 @@ When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.
 
 During the startup of the *ansible_symfony_1* container, commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you click the *Browse backend* button, for example, you will be able to click the *Login* button and see live data from the *mariadb* service.
 
+## Test your code
+
+When you reach a point where you're ready to perform a build and test your code, run the following commands. You can run these commands with either the empty project, the demo project, or your project:
+
+```
+# Set the working directory to the root of the clone
+$ cd symfony-mariadb-nginx
+
+# Rebuild the images. This will copy your latest app code into the nginx image.
+$ make build
+
+# Rund the containers in production mode
+$ make run_prod
+```
+Now you will have the *mariadb* and *nginx* services running in the foreground, and this time the symfony service quietly stopped.
+
+We don't want to run the PHP web server in production. Instead, we want to run something more robust like Nginx with PHP-FPM FastCGI, and so that's exactly what we're doing here.  
+
+The *nginx* service has a copy of the app code deployed as a static asset to */var/www/nginx/*, in the same way we would deploy to a typical production web server, and inside the *nginx* container we're running supervisord to manage an nginx process and a php-fpm process. The nginx process listens for requests on port 8888, and forwards valid requests to the php-fpm process via a Unix socket.
+
+### Learn about the build process
+
+To understand more about how the `build` process works, take a look at  [ansible/main.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/main.yml). This is an Ansible playbook, which Ansible Container executes to build each of the services in our project.
+
+### Access the production web server
+
+Access the web server exactly the same as before, except this time use port 8888.
+
+# Deploying to OpenShift
+
+
+
+
+
+
+
 
 
 
