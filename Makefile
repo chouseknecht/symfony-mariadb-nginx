@@ -18,8 +18,10 @@ build:
 build_from_scratch: clean
 	ansible-container build	
 
-demo:	clean
+demo:	
 	@echo "Run the demo"
+	rm -rf dist/*
+	rm -rf symfony
 	@AC_DEMO_MODE=1; ansible-container --debug run
 
 run:
