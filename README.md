@@ -16,8 +16,8 @@ To get started developing, you'll first need to clone this project and have the 
 # Set the working directory to the root of the cloned project
 $ cd symfony-mariadb-nginx
 
-# Build the images. NOTE: the following command will delete whatever is in the *symfony* directory. If you don't
-# want that, then run `make build` instead.
+# Build the images. WARNING: the following command will remove any project you may have 
+# in the *symphony* folder.
 $ make build_from_scratch
 
 # Run in development mode
@@ -85,20 +85,57 @@ You'll need to first clone this project and install the requirements. Once you'v
 # Set the working directory to the root of the clone
 $ cd symfony-mariadb-nginx
 
-# Build the container images with the demo project. WARNING: the following command will remove anything you may have 
+# Build the images. WARNING: the following command will remove any project you may have 
 # in the *symphony* folder.
+$ make build_from_scratch
+
+# Run the demo project
 $ make demo
-
-# Run the project in development mode
-$ make run
 ```
+When the `make demo` command completes, you will see the following output in the terminal window:
 
-The above commands created a *symfony* directory containing the demo project. The root of the your local clone is mounted as */symfony* to the *ansible_symfony_1* container, so inside the container the demo project can be found at */symfony/symfony*, and outside it is simply the *symfony* directory in the root directory.
+```
+symfony_1            |  --- ------------------------------ ------------------
+symfony_1            |       Bundle                         Method / Error
+symfony_1            |  --- ------------------------------ ------------------
+symfony_1            |   ✔   FrameworkBundle                relative symlink
+symfony_1            |   ✔   WhiteOctoberPagerfantaBundle   relative symlink
+symfony_1            |  --- ------------------------------ ------------------
+symfony_1            |
+symfony_1            |  [OK] All assets were successfully installed.
+symfony_1            |
+symfony_1            | > Sensio\Bundle\DistributionBundle\Composer\ScriptHandler::installRequirementsFile
+symfony_1            | > Sensio\Bundle\DistributionBundle\Composer\ScriptHandler::prepareDeploymentTarget
+symfony_1            |     Skipped installation of bin bin/doctrine-dbal for package doctrine/dbal: file not found in package
+symfony_1            |     Skipped installation of bin bin/doctrine for package doctrine/orm: file not found in package
+symfony_1            |     Skipped installation of bin bin/doctrine.php for package doctrine/orm: file not found in package
+symfony_1            | + php bin/console doctrine:schema:create
+mariadb_1            | 2016-11-05  2:06:34 140288996005632 [Warning] IP address '172.17.0.4' could not be resolved: Name or service not known
+symfony_1            | ATTENTION: This operation should not be executed in a production environment.
+symfony_1            |
+symfony_1            | Creating database schema...
+symfony_1            | Database schema created successfully!
+symfony_1            | + php bin/console doctrine:fixtures:load --no-interaction
+symfony_1            |   > purging database
+symfony_1            |   > loading AppBundle\DataFixtures\ORM\LoadFixtures
+symfony_1            | + cd /symfony/symfony
+symfony_1            | + exec php bin/console server:run 0.0.0.0:8000
+symfony_1            |
+symfony_1            |  [OK] Server running on http://0.0.0.0:8000
+symfony_1            |
+symfony_1            |  // Quit the server with CONTROL-C.
+```
+The *symfony* and *mariadb* services are now running in the foreground, and output from each is being displayed in your terminal window. Since we're in development mode the *nginx* service is not needed, and so you may have noticed it quietly stop at the beginning.
 
-The PHP web servers is running inside *ansible_symfony_1* and listening on port 8000. You an access the server using a web browser and pointing to port 8000 at the IP address of your Docker host. If your running Docker Engine, then the IP address is most likely *127.0.0.1*. If you're running Docker Machine, you'll need the IP address of the vagrant box, which you can get by running `docker-machine ip default`, where *default* is the name of your vagrant box.
+The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created at */symfony/symfony*, so inside the container you can access the project at */symfony/symfony*, and outside the container you can access it directly in the *symfony* folder found in the root directory.
+
+### Accessing the web server
+
+The PHP web server is running inside *ansible_symfony_1* and listening on port 8000. You an access the server using a web browser and pointing to port 8000 at the IP address of your Docker host. If you're running Docker Engine, then the IP address is most likely *127.0.0.1*. If you're running Docker Machine, you'll need the IP address of the vagrant box, which you can get by running `docker-machine ip default`, where *default* is the name of your vagrant box.
 
 When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.0.1:8000), you will see the following page:
 
+<img src="https://github.com/chouseknecht/symfony-mariadb-nginx/blob/images/img/demo-app-page.png" alt="Demo app page" />
 
 During the startup of the *ansible_symfony_1* container, commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you browse the backend page, for example, you will be able to click the *Login* button and see live data from the *mariadb* service.
 
