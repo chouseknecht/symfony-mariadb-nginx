@@ -4,7 +4,16 @@ A containerized [symfony](https://symfony.com/) stack you can use to start your 
 
 Using this framework you're instantly developing your app in containers, plus you get built-in tools to deploy your app to Kubernetes or Openshift. Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
-Don't beleive it? Skip down to *[Start with the symfony demo](#symfony-demo)*, and try it out.
+Don't believe it? Skip to *[Start with the symfony demo](#symfony-demo)*, and try it out.
+
+## Requirements
+
+- [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
+- [Ansible Container](https://github.com/ansible/ansible-container)
+- make
+- [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
+
+If installing Docker Machine, we recommend installing version 1.11.2, as the newer 1.12 release has not been tested with Ansible Container.
 
 ## Getting started
 
