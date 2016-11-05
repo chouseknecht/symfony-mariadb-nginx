@@ -171,6 +171,24 @@ We don't want to run the PHP web server in production. Instead, we want to run s
 
 The *nginx* service has a copy of the app code deployed as a static asset to */var/www/nginx/*, in the same way we would deploy to a typical production web server, and inside the *nginx* container we're running supervisord to manage an nginx process and a php-fpm process. The nginx process listens for requests on port 8888, and forwards valid requests to the php-fpm process via a Unix socket.
 
+### Load demo data
+
+If you're using the demo project, you'll need to manualy create the database schema and load the data. You can do this by opening a command shell on the *nginx* container and running the *console* commands. Here are the exact commands:
+
+```
+# Open a command shell in the nginx container
+$ docker exec -it ansible_nginx_1 /bin/bash
+
+# Set the working directory to the web directory
+$ cd /var/www/nginx
+
+# Create the database schema
+$ php bin/console doctrine:schema:create
+
+# Load the data
+php bin/console doctrine:fixtures:load --no-interaction
+```
+
 ### Learn about the build process
 
 To understand more about how the `build` process works, take a look at  [ansible/main.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/main.yml). This is an Ansible playbook, which Ansible Container executes to build each of the services in our project.
