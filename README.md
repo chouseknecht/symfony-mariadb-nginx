@@ -179,7 +179,7 @@ To understand more about how the `build` process works, take a look at  [ansible
 
 Access the web server exactly the same as before, except this time use port 8888.
 
-# Deploying to OpenShift
+## Deploying to OpenShift
 
 
 
