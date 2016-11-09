@@ -24,9 +24,9 @@ http {
 
     access_log  {{ nginx_access_log }};
 
-    sendfile        on;
-    tcp_nopush      on;
-    tcp_nodelay     on;
+    sendfile        off;
+    tcp_nopush      off;
+    tcp_nodelay     off;
 
     gzip            off;
 
@@ -35,7 +35,7 @@ http {
 
     server {
         listen       {{ nginx_default_port }};
-        server_name  {{ nginx_default_server_name }};
+        server_name  "{{ nginx_default_server_name }}";
         root         /var/www/nginx/web;
 
         # try to serve file directly, fallback to app.php

@@ -1,0 +1,24 @@
+{
+    "kind": "Service", 
+    "spec": {
+        "ports": [
+            {
+                "targetPort": 3306, 
+                "name": "port-3306", 
+                "port": 3306
+            }
+        ], 
+        "selector": {
+            "app": "symfony-mariadb-nginx", 
+            "service": "mariadb"
+        }
+    }, 
+    "apiVersion": "v1", 
+    "metadata": {
+        "labels": {
+            "app": "symfony-mariadb-nginx", 
+            "service": "mariadb"
+        }, 
+        "name": "mariadb"
+    }
+}

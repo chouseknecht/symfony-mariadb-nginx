@@ -1,0 +1,24 @@
+{
+    "kind": "Service", 
+    "spec": {
+        "ports": [
+            {
+                "targetPort": 8888, 
+                "name": "port-8888", 
+                "port": 8888
+            }
+        ], 
+        "selector": {
+            "app": "symfony-mariadb-nginx", 
+            "service": "nginx"
+        }
+    }, 
+    "apiVersion": "v1", 
+    "metadata": {
+        "labels": {
+            "app": "symfony-mariadb-nginx", 
+            "service": "nginx"
+        }, 
+        "name": "nginx"
+    }
+}

@@ -750,3 +750,1303 @@ stdout:
 
 stderr:
 
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/symfony-8000 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server: routes "symfony-8000" not found
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "e3b705e2-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1807",
+        "creationTimestamp": "2016-11-09T14:07:46Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:46Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"nginx"
+        },
+        "port":{
+            "targetPort":"port-8888"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"nginx"
+        },
+        "name":"nginx-8888"
+    }
+}
+Received rc: 0
+stdout:
+route "nginx-8888" replaced
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "e3b705e2-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1807",
+        "creationTimestamp": "2016-11-09T14:07:46Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:46Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "e44ef197-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1808",
+        "creationTimestamp": "2016-11-09T14:07:47Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:47Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"mariadb"
+        },
+        "port":{
+            "targetPort":"port-3306"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"mariadb"
+        },
+        "name":"mariadb-3306"
+    }
+}
+Received rc: 0
+stdout:
+route "mariadb-3306" replaced
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "e44ef197-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1808",
+        "creationTimestamp": "2016-11-09T14:07:47Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:47Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/symfony-8000 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server: routes "symfony-8000" not found
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "e3b705e2-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1807",
+        "creationTimestamp": "2016-11-09T14:07:46Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:46Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"nginx"
+        },
+        "port":{
+            "targetPort":"port-8888"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"nginx"
+        },
+        "name":"nginx-8888"
+    }
+}
+Received rc: 0
+stdout:
+route "nginx-8888" replaced
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "e3b705e2-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1807",
+        "creationTimestamp": "2016-11-09T14:07:46Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:46Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "e44ef197-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1808",
+        "creationTimestamp": "2016-11-09T14:07:47Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:47Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"mariadb"
+        },
+        "port":{
+            "targetPort":"port-3306"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"mariadb"
+        },
+        "name":"mariadb-3306"
+    }
+}
+Received rc: 0
+stdout:
+route "mariadb-3306" replaced
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "e44ef197-a685-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "1808",
+        "creationTimestamp": "2016-11-09T14:07:47Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T14:07:47Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/symfony-8000 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server: routes "symfony-8000" not found
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server: routes "nginx-8888" not found
+
+Create from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"nginx"
+        },
+        "port":{
+            "targetPort":"port-8888"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"nginx"
+        },
+        "name":"nginx-8888"
+    }
+}
+Received rc: 0
+stdout:
+route "nginx-8888" created
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "b25418e3-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7504",
+        "creationTimestamp": "2016-11-09T23:03:15Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        },
+        "annotations": {
+            "openshift.io/host.generated": "true"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:15Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server: routes "mariadb-3306" not found
+
+Create from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"mariadb"
+        },
+        "port":{
+            "targetPort":"port-3306"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"mariadb"
+        },
+        "name":"mariadb-3306"
+    }
+}
+Received rc: 0
+stdout:
+route "mariadb-3306" created
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "b2ed983f-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7506",
+        "creationTimestamp": "2016-11-09T23:03:16Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        },
+        "annotations": {
+            "openshift.io/host.generated": "true"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:16Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/symfony-8000 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server: routes "symfony-8000" not found
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "b25418e3-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7504",
+        "creationTimestamp": "2016-11-09T23:03:15Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        },
+        "annotations": {
+            "openshift.io/host.generated": "true"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:15Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"nginx"
+        },
+        "port":{
+            "targetPort":"port-8888"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"nginx"
+        },
+        "name":"nginx-8888"
+    }
+}
+Received rc: 0
+stdout:
+route "nginx-8888" replaced
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "b25418e3-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7949",
+        "creationTimestamp": "2016-11-09T23:03:15Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:15Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "b2ed983f-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7506",
+        "creationTimestamp": "2016-11-09T23:03:16Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        },
+        "annotations": {
+            "openshift.io/host.generated": "true"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:16Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"mariadb"
+        },
+        "port":{
+            "targetPort":"port-3306"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"mariadb"
+        },
+        "name":"mariadb-3306"
+    }
+}
+Received rc: 0
+stdout:
+route "mariadb-3306" replaced
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "b2ed983f-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7950",
+        "creationTimestamp": "2016-11-09T23:03:16Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:16Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/symfony-8000 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server: routes "symfony-8000" not found
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "b25418e3-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7949",
+        "creationTimestamp": "2016-11-09T23:03:15Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:15Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"nginx"
+        },
+        "port":{
+            "targetPort":"port-8888"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"nginx"
+        },
+        "name":"nginx-8888"
+    }
+}
+Received rc: 0
+stdout:
+route "nginx-8888" replaced
+
+stderr:
+
+exec: oc get route/nginx-8888 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "nginx-8888",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/nginx-8888",
+        "uid": "b25418e3-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7949",
+        "creationTimestamp": "2016-11-09T23:03:15Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "nginx"
+        }
+    },
+    "spec": {
+        "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "nginx",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-8888"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "nginx-8888-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:15Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+exec: oc project symfony-mariadb-nginx
+Received rc: 0
+stdout:
+Already on project "symfony-mariadb-nginx" on server "https://192.168.99.106:8443".
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "b2ed983f-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7950",
+        "creationTimestamp": "2016-11-09T23:03:16Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:16Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
+Replace from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"mariadb"
+        },
+        "port":{
+            "targetPort":"port-3306"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"symfony-mariadb-nginx",
+            "service":"mariadb"
+        },
+        "name":"mariadb-3306"
+    }
+}
+Received rc: 0
+stdout:
+route "mariadb-3306" replaced
+
+stderr:
+
+exec: oc get route/mariadb-3306 -o json
+Received rc: 0
+stdout:
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "mariadb-3306",
+        "namespace": "symfony-mariadb-nginx",
+        "selfLink": "/oapi/v1/namespaces/symfony-mariadb-nginx/routes/mariadb-3306",
+        "uid": "b2ed983f-a6d0-11e6-b2ba-02e1b357837f",
+        "resourceVersion": "7950",
+        "creationTimestamp": "2016-11-09T23:03:16Z",
+        "labels": {
+            "app": "symfony-mariadb-nginx",
+            "service": "mariadb"
+        }
+    },
+    "spec": {
+        "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+        "to": {
+            "kind": "Service",
+            "name": "mariadb",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "port-3306"
+        }
+    },
+    "status": {
+        "ingress": [
+            {
+                "host": "mariadb-3306-symfony-mariadb-nginx.192.168.99.106.xip.io",
+                "routerName": "router",
+                "conditions": [
+                    {
+                        "type": "Admitted",
+                        "status": "True",
+                        "lastTransitionTime": "2016-11-09T23:03:16Z"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+stderr:
+
