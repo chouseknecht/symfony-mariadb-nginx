@@ -326,23 +326,3 @@ $ cd symfony-mariadb-nginx/ansible
 $ ansible-playbook shipit-openshift.yml
 ```
 
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

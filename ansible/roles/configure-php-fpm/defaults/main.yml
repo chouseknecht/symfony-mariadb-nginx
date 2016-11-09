@@ -16,3 +16,4 @@ php_packages:
 - php70u-iconv
 - php70u-fpm
 - php70u-fpm-nginx
+- php70u-soap

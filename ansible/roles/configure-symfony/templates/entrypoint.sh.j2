@@ -10,23 +10,33 @@ if [ -z "${SYMFONY_VERSION}" ]; then
 fi
 
 if [ ! -d "/symfony/${PROJECT_NAME}" ]; then
+    cd /symfony
     if [ "${DEMO_MODE}" = "1" ]; then
         # Install the demo project from https://github.com/symfony/symfony-demo
-        cd /symfony
         symfony demo ${PROJECT_NAME}
-        # Use mariadb as the database
-        cp /demo_config/parameters.yml.dist /symfony/symfony/app/config
-        cp /demo_config/config.yml /symfony/symfony/app/config
-        # Update parameters.yml
-        cd ${PROJECT_NAME} 
-        composer install --no-interaction --no-progress
+
+        # Fix cache and log directories
+        cp /demo_config/AppKernel_demo_project.php /symfony/symfony/app/AppKernel.php
+    else
+        # Create a new project
+        symfony new ${PROJECT_NAME} ${SYMFONY_VERSION}
+
+        # Fix cache and log directories
+        cp /demo_config/AppKernel_new_project.php /symfony/symfony/app/AppKernel.php
+    fi
+
+    # Use mariadb as the database
+    cp /demo_config/parameters.yml.dist /symfony/symfony/app/config
+    cp /demo_config/config.yml /symfony/symfony/app/config
+
+    # Update parameters.yml
+    cd ${PROJECT_NAME} 
+    composer install --no-interaction --no-progress
+
+    if [ "${DEMO_MODE}" = "1" ]; then
         # Load the database
         php bin/console doctrine:schema:create
         php bin/console doctrine:fixtures:load --no-interaction
-    else
-        # Create a new project, if one does not already exist
-        cd /symfony
-        symfony new ${PROJECT_NAME} ${SYMFONY_VERSION}
     fi
 fi
 

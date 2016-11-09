@@ -1,26 +1,20 @@
-- hosts: localhost     # exeutes on the build container
+- hosts: symfony  # exeutes on the build container
   gather_facts: no
   tasks:
   - name: Remove any existing dist archive
     file:
-      path: /ansible-container/dist/symfony.gz
+      path: /dist/symfony.gz
       state: absent
 
   - name: Stat the symfony/bin directory
     stat:
-      path: /ansible-container/symfony/bin
+      path: /symfony/symfony/bin
     register: sym 
 
-  - name: Remove the symfony directory when symfony/bin not found
-    file:
-      path: /ansible-container/symfony
-      state: absent
-    when: not sym.stat.exists
-
   - name: Archive the source files when symfony/bin found
-    command: tar -cvzf /ansible-container/dist/symfony.gz .
+    command: tar -cvzf /symfony/dist/symfony.gz .
     args:
-      chdir: /ansible-container/symfony
+      chdir: /symfony/symfony
     when: sym.stat.exists
 
 - hosts: mariadb

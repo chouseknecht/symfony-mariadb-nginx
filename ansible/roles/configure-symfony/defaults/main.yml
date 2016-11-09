@@ -1,2 +1,6 @@
 ---
 composer_packages: []
+
+symfony_cache_dir: /var/symfony/cache
+symfony_log_dir: /var/log/symfony
+

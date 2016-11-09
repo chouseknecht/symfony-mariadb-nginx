@@ -81,26 +81,46 @@
     group: root
     mode: 0664
 
-- name: Set directory permissions
+- name: Make /var and /var/lib owned by nginx
+  command: chown nginx:root "{{ item }}"
+  with_items:
+  - /var
+  - /var/lib
+
+- name: make /var/lib/php recursively owned by nginx
+  command: chown -R nginx:root /var/lib/php
+
+- name: Make sure directories exist and are writable
   file:
     path: "{{ item }}"
     state: directory
-    owner: root
+    owner: nginx 
     group: root
     mode: 0775
     recurse: yes
   with_items:
   - /var/lib/php/fpm/session
   - /var/lib/php/fpm/wsdlcache
+  - /var/lib/php/fpm/opcache
   - /var/log/php-fpm
+  - /var/symfony
+  - /var/log/symfony
 
 - name: Copy pool config
   template:
     src: www.conf.j2
     dest: /etc/php-fpm.d/www.conf
-    owner: root
+    owner: root 
     group: root
     mode: 0664
+
+- name: Remove logging symlinks
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+  - /var/log/nginx/access.log
+  - /var/log/nginx/error.log
 
 # - name: Link php-fpm log file to /dev/stdout
 #  file:

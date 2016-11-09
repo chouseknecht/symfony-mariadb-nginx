@@ -17,7 +17,7 @@ services:
     - MARIADB_DATABASE={{ mariadb_database }}
     - MARIADB_USERNAME={{ mariadb_username }}
     - MARIADB_PASSWORD={{ mariadb_password }}
-    - MARIADB_ROOT_PASSWORD= {{ mariadb_root_password }}
+    - MARIADB_ROOT_PASSWORD={{ mariadb_root_password }}
     ports:
     - 3306:3306
 
@@ -30,6 +30,7 @@ services:
     - mariadb
     volumes:
     - $PWD:/symfony:rw
+    - $PWD/dist:/dist:rw
     environment:
     # Set DEMO_MODE=1 to initialize with https://github.com/symfony/symfony-demo
     # the first time the container starts.
@@ -44,7 +45,12 @@ services:
     entrypoint: [/usr/bin/entrypoint.sh]
 
     dev_overrides:
-      command: [php, bin/console, 'server:run', '0.0.0.0:8000']
+      command: [php, bin/console, 'server:run', '-vv', '0.0.0.0:8000']
+
+    options:
+      openshift:
+        # Not needed in the cloud
+        state: absent         
 
   nginx:
     image: centos:7
