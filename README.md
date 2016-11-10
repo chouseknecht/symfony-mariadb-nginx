@@ -26,7 +26,7 @@ Start with containers and deploy with containers, all within the same framework.
 - [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/). If installing Docker Machine, we recommend version 1.11.2.
 - make
 - git
-- a local close of this project
+- a local clone of this project
 
 <h2 id="getting-started">Start with an empty project</h2>
 
