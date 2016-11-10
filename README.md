@@ -285,7 +285,7 @@ $ cd symfony-mariadb-nginx
 $ make build
 ```
 
-### Push the images to the registry. 
+### Push the images to the registry
 
 For example purposes we'll push the images to Docker Hub. If you have a private registry, you could use that as well. See [registry overview](https://docs.openshift.org/latest/install_config/registry/index.html) for instructions on using registries with OpenShit. 
 
