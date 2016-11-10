@@ -247,7 +247,23 @@ Launch the instance:
 $ oc cluster up
 ```
 
-After the command completes, access instructions will be displayed that include the console URL along with a user account and an admin account. Login using the admin account, and create a project that matches the name of your project. The following creates a *symfony-mariadb-nginx* project
+After the command completes, access instructions will be displayed that include the console URL along with a user account and an admin account details. For example:
+
+```
+-- Server Information ...
+   OpenShift server started.
+   The server is accessible via web console at:
+       https://192.168.99.106:8443
+
+   You are logged in as:
+       User:     developer
+       Password: developer
+
+   To login as administrator:
+       oc login -u system:admin
+```
+
+Login using the administrator account, and create a project that matches the name of your project. For example, the following creates a *symfony-mariadb-nginx* project:
 
 ```
 # Login as the admin user
@@ -259,7 +275,7 @@ $ oc new-project symfony-mariadb-nginx
 
 ### Build the images
 
-We neeed to buid a set of images for a project with the latest code deployed inside the *nginx* image. Run the following commands to build the images:
+We neeed to buid a set of images for our project with the latest code deployed inside the *nginx* image. Each time you make code changes and want to deploy, you will need to run a build in order to upate the nginx image. Run the following to build the images:
 
 ```
 # Set the working directory to the root of the project
@@ -271,7 +287,7 @@ $ make build
 
 ### Push the images to the registry. 
 
-For example purposes we'll push the images to Docker Hub. If you have a private registry, you could use that as well. See []() for instructions on using registries with OpenShit. 
+For example purposes we'll push the images to Docker Hub. If you have a private registry, you could use that as well. See [registry overview](https://docs.openshift.org/latest/install_config/registry/index.html) for instructions on using registries with OpenShit. 
 
 To push the images we'll use the `ansible-container push` command. If you previously logged into Docker Hub using `docker login`, then you should not need to authenticate again. If you need to authentication, you can use the *--username* and *--password* options. For more details and available options see [the *push* reference](http://docs.ansible.com/ansible-container/reference/push.html).
 
@@ -317,7 +333,9 @@ $ ansible-playbook shipit-openshift.yml
 
 ### Access the application
 
-Start by logging into the OpenShift console, and selecting the *symfony-mariadb-nginx* project. When the dashboard comes up you'll see two running pods:
+Start by logging into the OpenShift console using the URL displayed when you ran `oc cluster up`. Log in using the administrator account, and select the *symfony-mariadb-nginx* project. When the dashboard comes up, you'll see two running pods:
+
+<img src="https://github.com/chouseknecht/symfony-mariadb-nginx/blob/images/img/dashboard.png" alt="dashboard view" />
 
 
 To access the application in a browser, click on the *Application* menu, and choose *Routes*. You'll see a route exposing the *nginx* service. Click on the *Hostname* to open it in a browser.
@@ -344,7 +362,7 @@ Access the nginx pod, by running the `oc rsh` command followed by the name of yo
 $ oc rsh nginx-2-deploy
 ```
 
-Now inside the *nginx* pod run the follwing:
+Now inside the *nginx* pod run the following:
 
 ```
 # Set the working directory to the web directory
@@ -354,7 +372,10 @@ $ cd /var/www/nginx
 $ php bin/console doctrine:schema:create
 
 # Load the data
-php bin/console doctrine:fixtures:load --no-interaction
+$ php bin/console doctrine:fixtures:load --no-interaction
+
+# Exit the container
+$ exit
 ```
 
 <h2 id="next">What's next?</h2>
@@ -376,7 +397,7 @@ The nginx service is configured by the [configure-php-fpm role](./tree/master/an
 
 If you work with this project and find issues, please [submit an issue](https://github.com/chouseknecht/symfony-mariadb-nginx/issues). 
 
-Pull requests are welcome, if you want to help add features and maintain the project.
+Pull requests are welcome. If you want to help add features and maintain the project, please feel free to jump in, and we'll review your request quickly, and help you get it merged.
 
 <h2 id="license">License</h2>
 
