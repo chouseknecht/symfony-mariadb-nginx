@@ -21,7 +21,7 @@ Start with containers and deploy with containers, all within the same framework.
 <h2 id="requirements">Requirements</h2>
 
 - [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
-- [Ansible Container](https://github.com/ansible/ansible-container) installed from the repo, not from pip
+- The latest [Ansible Container](https://github.com/ansible/ansible-container) installed from source
 - make
 - [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
 - git
