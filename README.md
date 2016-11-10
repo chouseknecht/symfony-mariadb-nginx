@@ -1,8 +1,8 @@
 # symfony-mariadb-nginx
 
-A framework for building containerized [symfony](https://symfony.com/) applicaions.
+A framework for building containerized [symfony](https://symfony.com/) applications. Includes: PHP 7, symfony 3, composer, nginx, mariadb, and php-fpm. Run containers on your laptop while you develop, and when you're ready, instantly deploy them to the cloud for testing.
 
-Get started instantly developing in containers, plus get built-in tools for deploying and testing on [OpenShift 3](https://www.openshift.org/) or [Kubernetes](http://kubernetes.io/).
+Get started developing in containers without having to deal with all the configuration, plus get built-in tools for deploying and testing on [OpenShift 3](https://www.openshift.org/) or [Kubernetes](http://kubernetes.io/).
 
 Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
