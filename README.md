@@ -6,7 +6,7 @@ Get started instantly developing in containers, plus get built-in tools for depl
 
 Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
-Table of contents:
+*Table of contents:*
 
   - [Requirements](#requirements)
   - [Start with an empty project](#getting-started)
