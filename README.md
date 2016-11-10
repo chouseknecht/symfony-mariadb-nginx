@@ -23,7 +23,7 @@ Start with containers and deploy with containers, all within the same framework.
 - [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
 - The latest [Ansible Container](https://github.com/ansible/ansible-container) installed from source
 - make
-- [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
+- [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/). If installing Docker Machine, we recommend version 1.11.2.
 - git
 - a local clone of this project:
     
@@ -34,9 +34,6 @@ Start with containers and deploy with containers, all within the same framework.
     # Make a clone
     $ git clone git@github.com:chouseknecht/symfony-mariadb-nginx.git
     ```
-
-If installing Docker Machine, we recommend installing version 1.11.2.
-
 <h2 id="getting-started">Start with an empty project</h2>
 
 If you want to hop in and start creating your next symfony masterpiece, the following will get started with a blankr project. If you're looking to kick the tires a bit and see how things work, you may want to [start with the symfony demo](#symfony-demo).
