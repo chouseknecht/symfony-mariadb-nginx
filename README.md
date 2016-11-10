@@ -1,19 +1,19 @@
 # symfony-mariadb-nginx
 
-Table of contents:
+A framework for building containerized [symfony](https://symfony.com/) applicaions.
 
-- [Requirements](#requirements)
-- [Start with an empty project](#getting-started)
-- [Start with the symfony demo project](#symfony-demo)
-- [Run a production build](#production-build)
-- [Deploy to OpenShift](#openshift)
-- [What's next?](#next)
-
-A framework for building a containerized [symfony](https://symfony.com/) applicaion.
-
-You're instantly developing in containers, plus you have built-in tools for deploying and testing on [OpenShift 3](https://www.openshift.org/) or [Kubernetes](http://kubernetes.io/).
+Get started instantly developing in containers, plus get built-in tools for deploying and testing on [OpenShift 3](https://www.openshift.org/) or [Kubernetes](http://kubernetes.io/).
 
 Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
+
+Table of contents:
+
+  - [Requirements](#requirements)
+  - [Start with an empty project](#getting-started)
+  - [Start with the symfony demo project](#symfony-demo)
+  - [Run a production build](#production-build)
+  - [Deploy to OpenShift](#openshift)
+  - [What's next?](#next)
 
 <h2 id="requirements">Requirements</h2>
 
