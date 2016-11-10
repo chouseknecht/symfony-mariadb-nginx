@@ -14,6 +14,9 @@ Table of contents:
   - [Run a production build](#production-build)
   - [Deploy to OpenShift](#openshift)
   - [What's next?](#next)
+  - [License](#license)
+  - [Dependencies](#dependencies)
+  - [Author](#author)
 
 <h2 id="requirements">Requirements</h2>
 
@@ -205,7 +208,7 @@ Access the web server exactly the same as before, except this time use port 8888
 
 To understand more about how the `build` process works, take a look at  [ansible/main.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/main.yml). This is an Ansible playbook, which Ansible Container executes to build each of the services in our project.
 
-<h2 id="openshift">Deploying to OpenShift</h2>
+<h2 id="openshift">Deploy to OpenShift</h2>
 
 For this example we'll run a local OpenShift instance. You'll need the following to create the instance: 
 
@@ -349,7 +352,33 @@ php bin/console doctrine:fixtures:load --no-interaction
 
 If you followed through all of the examples, we covered a lot of ground. Under the covers we're using Ansible Container to build and manage the containers, so you'll want to use the following resources to learn more:
 
-To learn more about OpenShift:
+- [Project repo](https://github.com/ansible/ansible-container)
+- [Docs Site](https://docs.ansible.com/ansible-container)
 
-If you work with this project and find issues, please submit an issue. Pull requests are welcome, if you want to help add features and maintain it. 
+### Project configuration 
+
+When we create the new project or the demo project, we're relying on the entrypoint script, symfony config and other files that get added into the *symfony* image during the `build` process. This gets handled in the [configure-symfony role](./tree/master/ansible/roles/configure-symfony)
+
+### Nginx, php-fpm and supervisor
+
+The nginx service is configured by the [configure-php-fpm role](./tree/master/ansible/roles/configure-php-fpm) as well as the [supervisord role](./tree/master/ansible/roles/supervisord) during the build process. You'll want to take a look at these roles to understand how the container is configured. 
+
+<h2 id="contributing">Contributing</h2>
+
+If you work with this project and find issues, please [submit an issue](https://github.com/chouseknecht/symfony-mariadb-nginx/issues). 
+
+Pull requests are welcome, if you want to help add features and maintain the project.
+
+<h2 id="license">License</h2>
+
+[Apache v2](https://www.apache.org/licenses/LICENSE-2.0)
+
+<h2 id="dependencies">Dependencies</h2>
+
+[chouseknecht.mariadb-container](https://galaxy.ansible.com/chouseknecht/mariadb-container)
+[chouseknecht.nginx-conainer](https://galaxy.ansible.com/chouseknecht/nginx-container)
+
+<h2 id="author">Author</h2>
+
+[chouseknecht](https://github.com/chouseknecht)
 
