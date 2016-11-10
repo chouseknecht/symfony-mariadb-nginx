@@ -5,18 +5,26 @@ A framework for building containerized [symfony](https://symfony.com/) applicati
 To start developing, its' as easy as...
 
 ```
+# Clone this project
+$ git clone https://github.com/chouseknecht/symfony-mariadb-nginx.git
+
+# Set the working directory to the project root
+$ cd symfony-mariadb-nginx
+
 # Create the container images
 $ make build
 
 # Create a new project and start the PHP web server
 $ make run
 ```
+Now you have a PHP server running in a container, a new mariadb database running in a container, and a new *symfony* directory that holds your project. 
 
-Get started developing using containers without having to deal with all the configuration, plus get built-in tools for deploying and testing on [OpenShift 3](https://www.openshift.org/) or [Kubernetes](http://kubernetes.io/).
+- Your app is containerized and [Kubernetes](http://kubernetes.io/)/[OpenShift 3](https://www.openshift.org/) ready from the start, saving you future headaches.
+- The orchestration and image build is pre-configure, saving you time
+- The tools are at your fingertips, allowing you to focus on building the application
+- And since it's built with Ansible and Docker Compose, it comes with the power and flexibility you need
 
-Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
-
-*Table of contents:*
+Ready to learn more? The sections below will help you build, test and deploy your next symfony project:
 
 - [Requirements](#requirements)
 - [Start a new project](#getting-started)
