@@ -1,5 +1,4 @@
 dist/*
-symfony/*
 .idea
 ansible/shipit-openshift.yml
 ansible/roles/symfony-mariadb-nginx-*
