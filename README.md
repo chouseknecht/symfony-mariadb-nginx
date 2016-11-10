@@ -24,7 +24,16 @@ Start with containers and deploy with containers, all within the same framework.
 - [Ansible Container](https://github.com/ansible/ansible-container) installed from the repo, not from pip
 - make
 - [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
-- clone this project by running `git@github.com:chouseknecht/symfony-mariadb-nginx.git`
+- git
+- a local clone of this project:
+    
+    ```
+    # Set the working directory to a project or a place where you want to make the clone
+    $ cd projects
+    
+    # Use git to clone the repo
+    $ git clone git@github.com:chouseknecht/symfony-mariadb-nginx.git
+    ```
 
 If installing Docker Machine, we recommend installing version 1.11.2.
 
