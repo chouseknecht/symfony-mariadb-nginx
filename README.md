@@ -28,10 +28,10 @@ Start with containers and deploy with containers, all within the same framework.
 - a local clone of this project:
     
     ```
-    # Set the working directory to a project or a place where you want to make the clone
+    # Set your working directory to a project folder or work space
     $ cd projects
     
-    # Use git to clone the repo
+    # Make a clone
     $ git clone git@github.com:chouseknecht/symfony-mariadb-nginx.git
     ```
 
