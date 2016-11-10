@@ -2,7 +2,7 @@
 
 A containerized [symfony](https://symfony.com/) stack you can use to start your next PHP project.
 
-Using this framework you're instantly developing your app in containers, plus you automatically get built-in tools to deploy and test your app directly to Kubernetes or Openshift.
+Using this framework you're instantly developing in containers, and you can deploy and test in Kubernetes or Openshift at will.
 
 Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
