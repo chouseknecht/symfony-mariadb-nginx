@@ -339,7 +339,7 @@ To access the application in a browser, click on the *Application* menu, and cho
 
 ### Load the database
 
-If you're running the demo app, you can load the sample data similar to what you did previously in the [production build step](#production-build), except this time we'll use the `oc` command. Start by getting the name of the *nginx* pod:
+If you're running the demo app, you can load the sample data similar to what you did previously, except this time we'll use the `oc` command. Start by getting the name of the *nginx* pod:
 
 ```
 # List all pods in the project
