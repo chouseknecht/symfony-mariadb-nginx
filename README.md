@@ -1,11 +1,13 @@
 # symfony-mariadb-nginx
 
-[Requirements](#requirements)
-[Start with an empty project](#getting-started)
-[Start with the symfony demo project](#symfony-demo)
-[Run a production build](#production-build)
-[Deploy to OpenShift](#openshift)
-[What's next?](#next)
+Table of contents:
+
+- [Requirements](#requirements)
+- [Start with an empty project](#getting-started)
+- [Start with the symfony demo project](#symfony-demo)
+- [Run a production build](#production-build)
+- [Deploy to OpenShift](#openshift)
+- [What's next?](#next)
 
 A framework for building a containerized [symfony](https://symfony.com/) applicaion.
 
