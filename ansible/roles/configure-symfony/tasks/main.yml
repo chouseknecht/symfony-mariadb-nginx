@@ -23,6 +23,10 @@
     dest: AppKernel_demo_project.php
   - src: AppKernel_new_project.php.j2
     dest: AppKernel_new_project.php
+  - src: app_demo.php.j2
+    dest: app_demo.php
+  - src: app_new.php.j2
+    dest: app_new.php
 
 - name: Copy new entrypoint script
   template:

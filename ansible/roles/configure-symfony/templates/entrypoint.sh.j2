@@ -17,12 +17,18 @@ if [ ! -d "/symfony/${PROJECT_NAME}" ]; then
 
         # Fix cache and log directories
         cp /demo_config/AppKernel_demo_project.php /symfony/symfony/app/AppKernel.php
+
+        # Fix request headers
+        cp /demo_config/app_demo.php /symfony/symfony/web/app.php
     else
         # Create a new project
         symfony new ${PROJECT_NAME} ${SYMFONY_VERSION}
 
         # Fix cache and log directories
         cp /demo_config/AppKernel_new_project.php /symfony/symfony/app/AppKernel.php
+
+        # Fix request headers
+        cp /demo_config/app_new.php /symfony/symfony/web/app.php
     fi
 
     # Use mariadb as the database

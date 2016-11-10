@@ -1,8 +1,8 @@
 # symfony-mariadb-nginx
 
-A containerized [symfony](https://symfony.com/) stack you can use to start your next symfony project.
+A containerized [symfony](https://symfony.com/) stack you can use to start your next PHP project.
 
-Using this framework you're instantly developing your app in containers, plus you automatically get built-in tools that will deploy your app directly to Kubernetes or Openshift.
+Using this framework you're instantly developing your app in containers, plus you automatically get built-in tools to deploy and test your app directly to Kubernetes or Openshift.
 
 Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
@@ -61,7 +61,7 @@ symfony_1            |
 
 The *symfony* and *mariadb* services are now running in the foreground, and output from each is being displayed in your terminal window. Since we're in development mode the *nginx* service is not needed, and so you may have noticed it quietly stop at the beginning.
 
-The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created at */symfony/symfony*, so inside the container you can access the project at */symfony/symfony*, and outside the container you can access it directly in the *symfony* folder found in the root directory.
+The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created at */symfony/symfony*, so inside the container you can access the project at */symfony/symfony*, and outside the container you can access it directly in the *symfony* folder found in the project root.
 
 ### Accessing the web server
 
@@ -85,9 +85,9 @@ You can shell into the *ansible_symfony_1* container directly by running `docker
 
 ### php.ini
 
-A template is used to create the php.ini file inside the *ansible_symfony_1* container. Lots of variables can be set in *ansible/group_vars/all* These settings will be applied to the symfony container as well as the nginx container the next time you run *make build*
+A template is used to create the *php.ini* file that used in both symfony and nginx containers. Variables used in the template are set in *ansible/group_vars/all*.
 
-<h2 id="symfony-demo">Start with the symfony demo</h2>
+<h2 id="symfony-demo">Start with the symfony demo project</h2>
 
 Instead of starting with an empty project, you can start with a fully functioning demo, try it out, deploy it, and see how the framework performs.
 
@@ -139,7 +139,7 @@ symfony_1            |  // Quit the server with CONTROL-C.
 ```
 The *symfony* and *mariadb* services are now running in the foreground, and output from each is being displayed in your terminal window. Since we're in development mode the *nginx* service is not needed, and so you may have noticed it quietly stop at the beginning.
 
-The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created at */symfony/symfony*, so inside the container you can access the project at */symfony/symfony*, and outside the container you can access it directly in the *symfony* folder found in the root directory.
+The root of the project is mounted to */symfony* in the *ansible_symfony_1* container, and an empty project called *symfony* is automatically created at */symfony/symfony*, so inside the container you can access the project at */symfony/symfony*, and outside the container you can access it directly in the *symfony* folder found in the project root. 
 
 ### Accessing the web server
 
@@ -151,9 +151,11 @@ When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.
 
 During the startup of the *ansible_symfony_1* container, commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you click the *Browse backend* button, for example, you will be able to click the *Login* button and see live data from the *mariadb* service.
 
-## Test your code
+## Run a production build(#production-build)
 
-When you reach a point where you're ready to perform a build and test your code, run the following commands. You can run these commands with either the empty project, the demo project, or your project:
+When you reach a point where you're ready to perform a build and test your code, run the following commands to rebuild the application and run it in *production mode*. This changes the configuration of the project to use the *mariadb* and *nginx* services with your code deployed as a static asset inside the *nginx* container, representing a typical production configuration. 
+
+Execute the following commands to launch the project in *production mode* with either the empty project, the demo project, or your own custom code in the *symfony* directory:
 
 ```
 # Set the working directory to the root of the clone
@@ -165,7 +167,7 @@ $ make build
 # Rund the containers in production mode
 $ make run_prod
 ```
-Now you will have the *mariadb* and *nginx* services running in the foreground, and this time the symfony service quietly stopped.
+Now you'll have the *mariadb* and *nginx* services running in the foreground, and this time the symfony service quietly stopped.
 
 We don't want to run the PHP web server in production. Instead, we want to run something more robust like Nginx with PHP-FPM FastCGI, and so that's exactly what we're doing here.  
 
@@ -173,7 +175,7 @@ The *nginx* service has a copy of the app code deployed as a static asset to */v
 
 ### Load demo data
 
-If you're using the demo project, you'll need to manualy create the database schema and load the data. You can do this by opening a command shell on the *nginx* container and running the *console* commands. Here are the exact commands:
+Since we're storing the database inside the *mariadb* container, the database gets destroyed along with the container, so you'll need to reload it. If you're using the demo project, you'll need to manualy create the database schema and load the data. You can do this by opening a command shell on the *nginx* container and running the *console* commands. Here are the exact commands:
 
 ```
 # Open a command shell in the nginx container
@@ -188,100 +190,57 @@ $ php bin/console doctrine:schema:create
 # Load the data
 php bin/console doctrine:fixtures:load --no-interaction
 ```
+### Access the production web server
+
+Access the web server exactly the same as before, except this time use port 8888.
 
 ### Learn about the build process
 
 To understand more about how the `build` process works, take a look at  [ansible/main.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/main.yml). This is an Ansible playbook, which Ansible Container executes to build each of the services in our project.
 
-### Access the production web server
-
-Access the web server exactly the same as before, except this time use port 8888.
-
 ## Deploying to OpenShift
 
-For this example, we're using the [OpenShift All-In-One VM](https://www.openshift.org/vm/), so to follow along you'll need to have the VM running, and the [oc client](https://github.com/openshift/origin/releases/tag/v1.3.0) installed.
+For this example we'll run a local OpenShift instance. You'll need the following to create the instance: 
 
-After you start the VM for the first time, the following message will be displayed, revealing the IP address of the VM and access instructions:
+- Download the [oc client](https://github.com/openshift/origin/releases/tag/v1.3.0), and add the binary to your PATH.
 
-```
-==> default: Successfully started and provisioned VM with 2 cores and 5 G of memory.
-==> default: To modify the number of cores and/or available memory modify your local Vagrantfile
-==> default:
-==> default: You can now access the OpenShift console on: https://10.2.2.2:8443/console
-==> default:
-==> default: Configured users are (<username>/<password>):
-==> default: admin/admin
-==> default: user/user
-==> default: But, you can also use any username and password combination you would like to create
-==> default: a new user.
-==> default:
-==> default: You can find links to the client libraries here: https://www.openshift.org/vm
-==> default: If you have the oc client library on your host, you can also login from your host.
-==> default:
-==> default: To use OpenShift CLI, run:
-==> default: $ oc login https://10.2.2.2:8443
-```
-### Authenticate with the oc client
+- If you're running Docker Engine, configure the daemon with an insecure registry parameter of 172.30.0.0/16  
 
-Log in using the *admin* account
+    - In RHEL and Fedora, edit the /etc/sysconfig/docker file and add or uncomment the following line
+
+        ```
+        INSECURE_REGISTRY='--insecure-registry 172.30.0.0/16'
+        ```
+    - After editing the config, restart the Docker daemon. 
+
+        ```
+        $ sudo systemctl restart docker
+        ```
+- If you're using Docker Machine, you'll need to create a new instance. The following creates a new instance named *devel*
+
+    ```
+    docker-machine create -d virtualbox --engine-insecure-registry 172.30.0.0/16 --virtualbox-host-dns-resolver devel
+    ```
+
+Launch the instance:
 
 ```
-# Authenticate with the new VM
-$ oc login https://10.2.2.2:8443
-username: admin
-password:
+$ oc cluster up
 ```
 
-### Configure insecure registry access
-
-For the deployment we'll be pushing images to the registry hosted on the VM. The address of the registry is the IP address of the VM.
-
-You'll need to configure Docker to access the registry. If you're running Docker Engine, follow the [instructions here](https://docs.docker.com/registry/insecure/#/deploying-a-plain-http-registry) to add the *--insecure-registry* option.
-
-If you're running Docker Machine, create a new VM that allows insecure access to the regsitry:
+After the command completes, access instructions will be displayed that include the console URL along with a user account and an admin account. Login using the admin account, and create a project that matches the name of your project. The following creates a *symfony-mariadb-nginx* project
 
 ```
-# Create a new Docker Machine VM named 'devel'. Replace 10.2.2.2 with the IP of your VM.
-$ docker-machine create -d virtualbox --engine-insecure-registry 10.2.2.2
+# Login as the admin user
+$ oc login https://<your Docker Host IP>:8443 -u system:admin
+
+# Create a project with a name matching the name of our project directory
+$ oc new-project symfony-mariadb-nginx
 ```
 
-### Create an insecure route
-
-Using a web browser, access the OpenShift console at https://10.2.2.2:8443/console, replacing 10.2.2.2 with the IP address of your VM, and perform the following to allow insecure access to the registry:
-
-- Open the *default* project
-- From the Applications menu, access *routes*, and click on *Create Route* 
-- Set the name to *insecure-access*
-- Set the hostname to the IP address of the VM
-- Leave the service as *docker-regisry*, and the target port as 5000 
-- Click on *Show options for secured routes*
-- Set *TLS Termination* to *Edge*
-- Set *Insecure Traffic* to *Allow*
-- Click the *Create* button
-
-### Create a new OpenShift project
-
-We'll need an OpenShift project with the same name as the project we've been working on. The project name is the name you chose when you cloned this repo. If you kept *symfony-mariadb-nginx*, then create a project with that name, for example:
-
-```
-# Create a new project with a name matching our local repo name
-$ oc new-project symfony-mariadb-nginx --description="Deploying a symfony project to openshift" --display-name="symfony demo"
-
-# Grant admin on the new project to your user account (admin)
-$ oc policy add-role-to-user admin admin
-```
-### Log into the registry
-
-If you completed the steps above, you should be able to login into the registry using a token generated by the *oc* client. The following command handles the login in one step:
-
-```
-# Log into the registry. Replace 10.2.2.2 with the IP of your VM.
-$ docker login -u admin -p $(oc whoami -t) http://10.2.2.2
-Login Succeeded
-```
 ### Build the images
 
-Build the images to make sure your have the laetst code deployed in the *nginx* image. Also, if you had to create a new Docker Machine VM, it has no images, so you'll need to build them. Run the build command as follows:
+We neeed to buid a set of images for a project with the latest code deployed inside the *nginx* image. Run the following commands to build the images:
 
 ```
 # Set the working directory to the root of the project
@@ -291,32 +250,43 @@ $ cd symfony-mariadb-nginx
 $ make build
 ```
 
-### Push the images to the OpenShift registry
+### Push the images to the registry. 
 
-Before we can deploy, we need to push our images onto the OpenShift VM by executing `ansible-container push`. In the following example replace 10.2.2.2 with the IP of your VM and *symfony-mariadb-nginx* with the name of your project:
+For example purposes we'll push the images to Docker Hub. If you have a private registry, you could use that as well. See []() for instructions on using registries with OpenShit. 
+
+To push the images we'll use the `ansible-container push` command. If you previously logged into Docker Hub using `docker login`, then you should not need to authenticate again. If you need to authentication, you can use the *--username* and *--password* options. For more details and available options see []().
+
+The following will perform the push:
 
 ```
-# Push the images to the OpenShift registry
-$ ansible-container push --push-to http://10.2.2.2/symfony-mariadb-nginx
+# Set the working directory to the project root
+$ cd symfony-mariadb-nginx
+
+# Push the images 
+$ ansible-container push 
 ```
 
 ### Generate the deployment playbook and role
 
-We need to transform our orchestration document [ansible/container.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/container.yml) into deployment instrutions for OpenShift by running `ansible-container shipit`. This generates an Ansible playbook and role to perform the deployment.
+Now we're ready to transform our orchestration document [ansible/container.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/container.yml) into deployment instrutions for OpenShift by running the `ansible-container shipit` command to generate an Ansible playbook and role.
 
-Before running this step you need to know the server to pull the images from. The server will be the IP address of the Docker registry container running inside the VM. It's an IP address that's only accessible from within the VM. To get the IP address, access the OpenShift console for your project, open the *Builds* menu, and choose *Images*. Here you will see each of the images, and to the right of each image name is the *Pull spec*. Get the IP address from the *pull spec*, and use it to execute the following: 
+For our example the images are out on Docker Hub. If you're using a private registry, you'll need to use the *--pull-from* option to specify the registry URL. For `shipit` details and available options see []().
+
+The following will build the playbook and role:
 
 ```
 # Set the working directory to the project root
 $ cd symfony-mariadb-nginx
 
 # Run the shipit command, using the IP address for your registry
-$ ansible-container shipit openshift --pull-from 172.30.53.244:5000/symfony-mariadb-nginx
+$ ansible-container shipit openshift
 ```
 
 ### Run the deployment
 
-The above added a playbook called *shipit-openshift.yml* to the *ansible* directory, and so all that's left is to run it:
+The above added a playbook called *shipit-openshift.yml* to the *ansible* directory. The playbook relies on the `oc` client being installed and available in the PATH, and it assumes you already authenticated, and created the project.
+
+When you're ready to deploy, run the following:
 
 ```
 # Set the working directory to the ansible directory
@@ -325,4 +295,54 @@ $ cd symfony-mariadb-nginx/ansible
 # Run the playbook
 $ ansible-playbook shipit-openshift.yml
 ```
+
+### Access the application
+
+Start by logging into the OpenShift console, and selecting the *symfony-mariadb-nginx* project. When the dashboard comes up you'll see two running pods:
+
+
+To access the application in a browser, click on the *Application* menu, and choose *Routes*. You'll see a route exposing the *nginx* service. Click on the *Hostname* to open it in a browser.
+
+### Load the database
+
+If you're running the demo app, you can load the sample data similar to what you did previously in the [production build step](#production-run), except this time we'll use the `oc` command. Start by getting the name of the *nginx* pod:
+
+```
+$ oc get pods
+``` 
+
+You'll see something similar to the following:
+
+```
+NAME               READY     STATUS    RESTARTS   AGE
+mariadb-2-deploy   0/1       Error     0          16m
+nginx-2-deploy     0/1       Error     0          16m
+```
+
+Access the nginx pod, by running the `oc rsh` command followed by the name of your *nginx* pod. For example:
+
+```
+$ oc rsh nginx-2-deploy
+```
+
+Now inside the *nginx* pod run the follwing:
+
+```
+# Set the working directory to the web directory
+$ cd /var/www/nginx
+
+# Create the database schema
+$ php bin/console doctrine:schema:create
+
+# Load the data
+php bin/console doctrine:fixtures:load --no-interaction
+```
+
+## What's next?
+
+If you followed through all of the examples, we covered a lot of ground. Under the covers we're using Ansible Container to build and manage the containers, so you'll want to use the following resources to learn more:
+
+To learn more about OpenShift:
+
+If you work with this project and find issues, please submit an issue. Pull requests are welcome, if you want to help add features and maintain it. 
 

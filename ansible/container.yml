@@ -18,8 +18,8 @@ services:
     - MARIADB_USERNAME={{ mariadb_username }}
     - MARIADB_PASSWORD={{ mariadb_password }}
     - MARIADB_ROOT_PASSWORD={{ mariadb_root_password }}
-    ports:
-    - 3306:3306
+    expose:
+    - 3306
 
   symfony:
     image: centos:7
