@@ -273,7 +273,7 @@ $ make build
 
 For example purposes we'll push the images to Docker Hub. If you have a private registry, you could use that as well. See []() for instructions on using registries with OpenShit. 
 
-To push the images we'll use the `ansible-container push` command. If you previously logged into Docker Hub using `docker login`, then you should not need to authenticate again. If you need to authentication, you can use the *--username* and *--password* options. For more details and available options see []().
+To push the images we'll use the `ansible-container push` command. If you previously logged into Docker Hub using `docker login`, then you should not need to authenticate again. If you need to authentication, you can use the *--username* and *--password* options. For more details and available options see [the *push* reference](http://docs.ansible.com/ansible-container/reference/push.html).
 
 The following will perform the push:
 
@@ -287,9 +287,9 @@ $ ansible-container push
 
 ### Generate the deployment playbook and role
 
-Now we're ready to transform our orchestration document [ansible/container.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/container.yml) into deployment instrutions for OpenShift by running the `ansible-container shipit` command to generate an Ansible playbook and role.
+Now we're ready to transform our orchestration document [ansible/container.yml](./blob/master/ansible/container.yml) into deployment instrutions for OpenShift by running the `ansible-container shipit` command to generate an Ansible playbook and role.
 
-For our example the images are out on Docker Hub. If you're using a private registry, you'll need to use the *--pull-from* option to specify the registry URL. For `shipit` details and available options see []().
+For our example the images are out on Docker Hub. If you're using a private registry, you'll need to use the *--pull-from* option to specify the registry URL. For `shipit` details and available options see [the shipit reference](http://docs.ansible.com/ansible-container/reference/shipit.html).
 
 The following will build the playbook and role:
 
