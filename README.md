@@ -1,6 +1,16 @@
 # symfony-mariadb-nginx
 
-A framework for building containerized [symfony](https://symfony.com/) applications. Run containers on your laptop while you develop, and when you're ready, instantly deploy them to the cloud for testing. Includes: PHP 7, symfony 3, composer, nginx, mariadb, and php-fpm. 
+A framework for building containerized [symfony](https://symfony.com/) applications. Run containers on your laptop while you develop, run a test build, and when you're read instantly deploy to the cloud. Includes: PHP 7, symfony 3, composer, nginx, mariadb, and php-fpm. 
+
+To start developing, its' as easy as...
+
+```
+# Create the container images
+$ make build
+
+# Create a new project and start the PHP web server
+$ make run
+```
 
 Get started developing using containers without having to deal with all the configuration, plus get built-in tools for deploying and testing on [OpenShift 3](https://www.openshift.org/) or [Kubernetes](http://kubernetes.io/).
 
@@ -9,8 +19,8 @@ Start with containers and deploy with containers, all within the same framework.
 *Table of contents:*
 
 - [Requirements](#requirements)
-- [Start with an empty project](#getting-started)
-- [Start with the symfony demo project](#symfony-demo)
+- [Start a new project](#getting-started)
+- [Start the symfony demo project](#symfony-demo)
 - [Run a production build](#production-build)
 - [Deploy to OpenShift](#openshift)
 - [What's next?](#next)
@@ -28,7 +38,7 @@ Start with containers and deploy with containers, all within the same framework.
 - git
 - a local clone of this project
 
-<h2 id="getting-started">Start with an empty project</h2>
+<h2 id="getting-started">Start a new project</h2>
 
 If you want to hop in and start creating your next symfony masterpiece, the following will get started with a blankr project. If you're looking to kick the tires a bit and see how things work, you may want to [start with the symfony demo](#symfony-demo).
 
@@ -38,14 +48,13 @@ To get started developing, you'll first need to clone this project and have the 
 # Set the working directory to the root of the cloned project
 $ cd symfony-mariadb-nginx
 
-# Build the images. WARNING: the following command will remove any project you may have 
-# in the *symphony* folder.
-$ make build_from_scratch
+# Create the container images
+$ make build
 
-# Run in development mode
+# Create a new symfony project and start the containers
 $ make run
 ```
-The `make run` command, which runs `ansible-container run`, takes a few minutes to finish. When it does, you will see the following message from the *symfony* container:
+The `make run` command takes a few moments to finish while it creates a new project. Once it finishes you will see the following message from the *symfony* container:
 
 ```
 symfony_1            |  ✔  Symfony 3.1.6 was successfully installed. Now you can:
