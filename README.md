@@ -345,24 +345,22 @@ To access the application in a browser, click on the *Application* menu, and cho
 If you're running the demo app, you can load the sample data similar to what you did previously in the [production build step](#production-run), except this time we'll use the `oc` command. Start by getting the name of the *nginx* pod:
 
 ```
+# List all pods in the project
 $ oc get pods
-``` 
 
-You'll see something similar to the following:
-
-```
-NAME               READY     STATUS    RESTARTS   AGE
-mariadb-2-deploy   0/1       Error     0          16m
-nginx-2-deploy     0/1       Error     0          16m
+NAME              READY     STATUS    RESTARTS   AGE
+mariadb-3-3xxsf   1/1       Running   0          1h
+nginx-3-gi4tj     1/1       Running   0          1h
 ```
 
 Access the nginx pod, by running the `oc rsh` command followed by the name of your *nginx* pod. For example:
 
 ```
-$ oc rsh nginx-2-deploy
+# Open a session to the pod
+$ oc rsh nginx-3-gi4tj 
 ```
 
-Now inside the *nginx* pod run the following:
+Now inside the *nginx* pod, run the following:
 
 ```
 # Set the working directory to the web directory
