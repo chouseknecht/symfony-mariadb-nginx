@@ -300,7 +300,7 @@ $ ansible-container push
 
 ### Generate the deployment playbook and role
 
-Now we're ready to transform our orchestration document [ansible/container.yml](./blob/master/ansible/container.yml) into deployment instrutions for OpenShift by running the `ansible-container shipit` command to generate an Ansible playbook and role.
+Now we're ready to transform our orchestration document [ansible/container.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/tree/master/ansible/container.yml) into deployment instrutions for OpenShift by running the `ansible-container shipit` command to generate an Ansible playbook and role.
 
 For our example the images are out on Docker Hub. If you're using a private registry, you'll need to use the *--pull-from* option to specify the registry URL. For `shipit` details and available options see [the shipit reference](http://docs.ansible.com/ansible-container/reference/shipit.html).
 
@@ -382,11 +382,11 @@ If you followed through all of the examples, we covered a lot of ground. Under t
 
 ### Project configuration 
 
-When we create the new project or the demo project, we're relying on the entrypoint script, symfony config and other files that get added into the *symfony* image during the `build` process. This gets handled in the [configure-symfony role](./tree/master/ansible/roles/configure-symfony)
+When we create the new project or the demo project, we're relying on the entrypoint script, symfony config and other files that get added into the *symfony* image during the `build` process. This gets handled in the [configure-symfony role](https://github.com/chouseknecht/symfony-mariadb-nginx/tree/master/ansible/roles/configure-symfony)
 
 ### Nginx, php-fpm and supervisor
 
-The nginx service is configured by the [configure-php-fpm role](./tree/master/ansible/roles/configure-php-fpm) as well as the [supervisord role](./tree/master/ansible/roles/supervisord) during the build process. You'll want to take a look at these roles to understand how the container is configured. 
+The nginx service is configured by the [configure-php-fpm role](https://github.com/chouseknecht/symfony-mariadb-nginx/tree/master/ansible/roles/configure-php-fpm) as well as the [supervisord role](https://github.com/chouseknecht/symfony-mariadb-nginx/tree/master/ansible/roles/supervisord) during the build process. You'll want to take a look at these roles to understand how the container is configured. 
 
 <h2 id="contributing">Contributing</h2>
 
