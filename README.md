@@ -384,8 +384,8 @@ Pull requests are welcome, if you want to help add features and maintain the pro
 
 <h2 id="dependencies">Dependencies</h2>
 
-[chouseknecht.mariadb-container](https://galaxy.ansible.com/chouseknecht/mariadb-container)
-[chouseknecht.nginx-conainer](https://galaxy.ansible.com/chouseknecht/nginx-container)
+- [chouseknecht.mariadb-container](https://galaxy.ansible.com/chouseknecht/mariadb-container)
+- [chouseknecht.nginx-conainer](https://galaxy.ansible.com/chouseknecht/nginx-container)
 
 <h2 id="author">Author</h2>
 
