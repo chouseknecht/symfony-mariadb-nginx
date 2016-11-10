@@ -8,15 +8,16 @@ Start with containers and deploy with containers, all within the same framework.
 
 *Table of contents:*
 
-  - [Requirements](#requirements)
-  - [Start with an empty project](#getting-started)
-  - [Start with the symfony demo project](#symfony-demo)
-  - [Run a production build](#production-build)
-  - [Deploy to OpenShift](#openshift)
-  - [What's next?](#next)
-  - [License](#license)
-  - [Dependencies](#dependencies)
-  - [Author](#author)
+- [Requirements](#requirements)
+- [Start with an empty project](#getting-started)
+- [Start with the symfony demo project](#symfony-demo)
+- [Run a production build](#production-build)
+- [Deploy to OpenShift](#openshift)
+- [What's next?](#next)
+- [License](#license)
+- [Dependencies](#dependencies)
+- [Author](#author)
+
 
 <h2 id="requirements">Requirements</h2>
 
