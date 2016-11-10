@@ -1,14 +1,19 @@
 # symfony-mariadb-nginx
 
-A containerized [symfony](https://symfony.com/) stack you can use to start your next PHP project.
+[Requirements](#requirements)
+[Start with an empty project](#getting-started)
+[Start with the symfony demo project](#symfony-demo)
+[Run a production build](#production-build)
+[Deploy to OpenShift](#openshift)
+[What's next?](#next)
 
-Using this framework you're instantly developing in containers, and you can deploy and test in Kubernetes or Openshift at will.
+A framework for building a containerized [symfony](https://symfony.com/) applicaion.
+
+You're instantly developing in containers, plus you have built-in tools for deploying and testing on [OpenShift 3](https://www.openshift.org/) or [Kubernetes](http://kubernetes.io/).
 
 Start with containers and deploy with containers, all within the same framework. No duplication. No wasted effort.
 
-Don't believe it? After installing the requirements, skip to *[Start with the symfony demo](#symfony-demo)*, and try it out.
-
-## Requirements
+<h2 id="requirements">Requirements</h2>
 
 - [Ansible](http://docs.ansible.com/ansible/intro_installation.html)
 - [Ansible Container](https://github.com/ansible/ansible-container) installed from the repo, not from pip
@@ -16,11 +21,11 @@ Don't believe it? After installing the requirements, skip to *[Start with the sy
 - [Docker Engine](https://www.docker.com/products/docker-engine) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
 - clone this project by running `git@github.com:chouseknecht/symfony-mariadb-nginx.git`
 
-If installing Docker Machine, we recommend installing version 1.11.2, as the newer 1.12 release has not been tested with Ansible Container.
+If installing Docker Machine, we recommend installing version 1.11.2.
 
-## Getting started
+<h2 id="getting-started">Start with an empty project</h2>
 
-If you want to hop in and start creating your next symfony masterpiece, the following will get started. But if you want to kick the tires a bit and see how the project works, skip down to the *[Start with the symfony demo](#symfony-demo)* section, and see how to launch the [Symfony Demo](https://github.com/symfony/symfony-demo) project in containers.
+If you want to hop in and start creating your next symfony masterpiece, the following will get started with a blankr project. If you're looking to kick the tires a bit and see how things work, you may want to [start with the symfony demo](#symfony-demo).
 
 To get started developing, you'll first need to clone this project and have the requirements installed. Once you've got that, then run the following commands to setup your development environment: 
 
@@ -35,7 +40,7 @@ $ make build_from_scratch
 # Run in development mode
 $ make run
 ```
-The `make run` command, which is running `ansible-container run`, takes a few minutes to finish. When it does, you will see the following message from the *symfony* container:
+The `make run` command, which runs `ansible-container run`, takes a few minutes to finish. When it does, you will see the following message from the *symfony* container:
 
 ```
 symfony_1            |  ✔  Symfony 3.1.6 was successfully installed. Now you can:
@@ -151,7 +156,7 @@ When you access the web site at [http://_your_docker_host_ip:8000](http://127.0.
 
 During the startup of the *ansible_symfony_1* container, commands were automatically executed to create the *mysql* database, create the schema, and load the sample data. If you click the *Browse backend* button, for example, you will be able to click the *Login* button and see live data from the *mariadb* service.
 
-## Run a production build(#production-build)
+<h2 id="production-build">Run a production build</h2>
 
 When you reach a point where you're ready to perform a build and test your code, run the following commands to rebuild the application and run it in *production mode*. This changes the configuration of the project to use the *mariadb* and *nginx* services with your code deployed as a static asset inside the *nginx* container, representing a typical production configuration. 
 
@@ -198,7 +203,7 @@ Access the web server exactly the same as before, except this time use port 8888
 
 To understand more about how the `build` process works, take a look at  [ansible/main.yml](https://github.com/chouseknecht/symfony-mariadb-nginx/blob/master/ansible/main.yml). This is an Ansible playbook, which Ansible Container executes to build each of the services in our project.
 
-## Deploying to OpenShift
+<h2 id="openshift">Deploying to OpenShift</h2>
 
 For this example we'll run a local OpenShift instance. You'll need the following to create the instance: 
 
@@ -338,7 +343,7 @@ $ php bin/console doctrine:schema:create
 php bin/console doctrine:fixtures:load --no-interaction
 ```
 
-## What's next?
+<h2 id="next">What's next?</h2>
 
 If you followed through all of the examples, we covered a lot of ground. Under the covers we're using Ansible Container to build and manage the containers, so you'll want to use the following resources to learn more:
 
