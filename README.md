@@ -2,7 +2,7 @@
 
 A framework for building containerized [symfony](https://symfony.com/) applications. Run containers on your laptop while you develop, run a test build, and when you're read instantly deploy to the cloud. Includes: PHP 7, symfony 3, composer, nginx, mariadb, and php-fpm. 
 
-To start developing, its' as easy as...
+To start developing, it's as easy as...
 
 ```
 # Clone this project
